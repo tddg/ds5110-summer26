@@ -1,0 +1,21 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Python local build artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local preview logs and temp output
+.tmp/
+tmp/
+
+# Assignment content is intentionally excluded from GitHub Pages for now.
+# Remove these rules, or use `git add -f`, when assignments are ready to publish.
+assignments/*.html
+assignments/src/*.md
+assets/images/a0/

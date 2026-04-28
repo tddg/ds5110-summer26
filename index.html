@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DS5110 Summer 2026 |  Data Eng II: Big Data Systems</title>
+  <link rel="icon" href="assets/images/uva.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20260428-3">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">DS5110</a>
+      <div class="nav-links" aria-label="Course sections">
+        <a href="#syllabus" data-tab-link="syllabus">Syllabus</a>
+        <a href="#schedule" data-tab-link="schedule">Schedule</a>
+        <a href="#materials" data-tab-link="materials">Materials</a>
+        <a href="#assignments" data-tab-link="assignments">Assignments</a>
+        <a href="#staff" data-tab-link="staff">Staff</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-content">
+        <p class="term">Summer 2026</p>
+        <h1>DS5110: Big Data Systems</h1>
+        <p class="hero-copy">Scalable data systems, parallel analytics, cloud infrastructure, and modern AI systems/infrastructure</p>
+        <div class="hero-meta" id="course-meta"></div>
+      </div>
+    </section>
+
+    <section class="section announcement-section" aria-labelledby="announcement-title">
+      <div class="announcement" id="announcement-box">
+        <div>
+          <p class="eyebrow">Latest Announcement</p>
+          <h2 id="announcement-title">Announcements</h2>
+        </div>
+        <div class="announcement-list" id="announcement-list">
+          <article class="announcement-item latest">
+            <span class="announcement-date">May 4, 2026</span>
+            <h3>Lecture materials will be posted here</h3>
+            <p>Slides, readings, demos, and lab links will be added to the Materials tab as they become available.</p>
+          </article>
+        </div>
+        <button class="announcement-toggle" id="announcement-toggle" type="button">Show all announcements</button>
+      </div>
+    </section>
+
+    <section class="section overview-grid" aria-label="Course overview">
+      <div>
+        <p class="eyebrow">Overview</p>
+        <h2>Systems for modern data science and AI</h2>
+		<p>
+	Welcome to the course of Big Data Systems. Scalable big data
+systems are a central part of modern data science. This course will
+cover topics including design and use of parallel dataflow systems
+(MapReduce/Hadoop and Spark), scalable and parallel Python analytics
+frameworks, machine learning systems (Ray), and cloud data systems
+(cloud storage, large ML infrastructure). A major component of this
+course is hands-on programming using scalable analytics tools and
+cloud resources on Amazon Web Services (AWS) or Google Cloud.
+		</p>
+        <p>
+A major component is hands-on programming using scalable analytics
+tools and cloud resources on AWS or Google Cloud.
+		</p>
+      </div>
+      <div class="info-panel">
+        <h3>Course Topics</h3>
+        <ul id="topic-list">
+          <li>Computer systems foundations and distributed computing</li>
+          <li>Google File System, HDFS, and MapReduce</li>
+          <li>Apache Spark and parallel dataflow systems</li>
+          <li>Parallel Python analytics and Ray</li>
+          <li>Cloud computing, storage, and serverless systems</li>
+          <li>Large-scale AI and LLM systems</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section course-tabs">
+      <div class="tab-list" role="tablist" aria-label="Course information">
+        <button class="tab-button active" type="button" role="tab" aria-selected="true" data-tab="syllabus">Syllabus</button>
+        <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="schedule">Schedule</button>
+        <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="materials">Materials</button>
+        <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="assignments">Assignments</button>
+        <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="staff">Staff</button>
+      </div>
+
+      <section class="tab-panel active" id="syllabus" role="tabpanel">
+        <div class="panel-header">
+          <p class="eyebrow">Syllabus</p>
+          <h2>Course policies and expectations</h2>
+        </div>
+        <div class="content-grid" id="syllabus-content"></div>
+      </section>
+
+      <section class="tab-panel" id="schedule" role="tabpanel">
+        <div class="panel-header">
+          <p class="eyebrow">Calendar</p>
+          <h2>May 18 to June 12, Monday through Friday</h2>
+        </div>
+        <div class="schedule-tools">
+          <label for="week-filter">Show</label>
+          <select id="week-filter">
+            <option value="all">All weeks</option>
+            <option value="1">Week 1</option>
+            <option value="2">Week 2</option>
+            <option value="3">Week 3</option>
+            <option value="4">Week 4</option>
+          </select>
+        </div>
+        <div class="schedule-table-wrap">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Topic</th>
+                <th>Materials</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="schedule-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="materials" role="tabpanel">
+        <div class="panel-header">
+          <p class="eyebrow">Lecture Materials</p>
+          <h2>Slides, readings, and demos</h2>
+        </div>
+        <div class="materials-grid" id="materials-grid"></div>
+      </section>
+
+      <section class="tab-panel" id="assignments" role="tabpanel">
+        <div class="panel-header">
+          <p class="eyebrow">Assignments</p>
+          <h2>Coursework and deadlines</h2>
+        </div>
+        <div class="assignment-list" id="assignment-list"></div>
+      </section>
+
+      <section class="tab-panel" id="staff" role="tabpanel">
+        <div class="panel-header">
+          <p class="eyebrow">Staff</p>
+          <h2>Instructor and course support</h2>
+        </div>
+        <div class="staff-grid" id="staff-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Summer'26: DS5110: Big Data Systems, University of Virginia</p>
+  </footer>
+
+  <script src="app.js?v=20260428-4"></script>
+</body>
+</html>
