@@ -180,31 +180,31 @@ presentation.</p>
       </section>
     `,
     schedule: [
-      { week: 1, date: "Mon May 18", topic: "Introduction", materials: [{ text: "Slides", href: "assets/docs/lec1-intro.pdf" }], notes: "AWS Academy and environment setup" },
-      { week: 1, date: "Tue May 19", topic: "AI coding tools, agents", materials: [], notes: "Assignment 0 out" },
+      { week: 1, date: "Mon May 18", topic: "Introduction", materials: [{ text: "Slides", href: "assets/docs/lec1-intro.pdf" }], notes: "Assignment 0 out" },
+      { week: 1, date: "Tue May 19", topic: "AI coding tools, agents", materials: [], notes: "" },
       { week: 1, date: "Wed May 20", topic: "Python data types, parallel Python", materials: [], notes: "" },
       { week: 1, date: "Thu May 21", topic: "MapReduce, Spark", materials: [], notes: "" },
-      { week: 1, date: "Fri May 22", topic: "Lab 1", materials: [], notes: "Lab session" },
-      { week: 2, date: "Mon May 25", topic: "Cloud computing", materials: [], notes: "Memorial Day: confirm class plan" },
-      { week: 2, date: "Tue May 26", topic: "Serverless computing", materials: [], notes: "Assignment 1 out" },
+      { week: 1, date: "Fri May 22", topic: "Lab 1", materials: [], notes: "Assignment 0 due<br>Assignment 1 out" },
+      { week: 2, date: "Mon May 25", topic: "Memorial Day", materials: [], notes: "No class" },
+      { week: 2, date: "Tue May 26", topic: "Cloud and serverless computing", materials: [], notes: "" },
       { week: 2, date: "Wed May 27", topic: "Cloud storage (AWS S3)", materials: [], notes: "" },
       { week: 2, date: "Thu May 28", topic: "Midterm presentation + discussion", materials: [], notes: "" },
-      { week: 2, date: "Fri May 29", topic: "Lab 2", materials: [], notes: "Assignment 0 due" },
-      { week: 3, date: "Mon Jun 1", topic: "AI systems foundation", materials: [], notes: "Assignment 2 out" },
+      { week: 2, date: "Fri May 29", topic: "Lab 2", materials: [], notes: "Assignment 1 due<br>Assignment 2 out" },
+      { week: 3, date: "Mon Jun 1", topic: "AI systems foundation", materials: [], notes: "" },
       { week: 3, date: "Tue Jun 2", topic: "Model optimization", materials: [], notes: "" },
       { week: 3, date: "Wed Jun 3", topic: "AI programming frameworks (Ray)", materials: [], notes: "" },
       { week: 3, date: "Thu Jun 4", topic: "AI infastructure", materials: [], notes: "" },
-      { week: 3, date: "Fri Jun 5", topic: "Lab 3", materials: [], notes: "Assignment 1 due" },
-      { week: 4, date: "Mon Jun 8", topic: "LLM model storage and compression", materials: [], notes: "Assignment 3 out" },
+      { week: 3, date: "Fri Jun 5", topic: "Lab 3", materials: [], notes: "Assignment 2 due" },
+      { week: 4, date: "Mon Jun 8", topic: "LLM model storage and compression", materials: [], notes: "" },
       { week: 4, date: "Tue Jun 9", topic: "Multimodal generation", materials: [], notes: "" },
       { week: 4, date: "Wed Jun 10", topic: "Computational notebooks", materials: [], notes: "" },
-      { week: 4, date: "Thu Jun 11", topic: "Final presentation 1", materials: [], notes: "Assignment 2 due" },
+      { week: 4, date: "Thu Jun 11", topic: "Final presentation 1", materials: [], notes: "" },
       { week: 4, date: "Fri Jun 12", topic: "Final presentation 2", materials: [], notes: "Course wrap-up" }
     ],
     assignments: [
-      { title: "Assignment 0", subtitle: "AWS Academy, EC2, Linux shell, and AI coding CLI", due: "Fri May 22, 11:59 PM ET", dueDate: "2026-05-22T23:59:00-04:00", status: "Draft", href: "assignments/a0.html" },
-      { title: "Assignment 1", subtitle: "Analytics with Spark and DB", due: "Fri May 29, 11:59 PM ET", dueDate: "2026-05-29T23:59:00-04:00", status: "Planned", href: "#" },
-      { title: "Assignment 2", subtitle: "Burst-parallel ML with AWS Lambda", due: "Fri Jun 5, 11:59 PM ET", dueDate: "2026-06-05T23:59:00-04:00", status: "Planned", href: "#" }
+      { title: "Assignment 0", subtitle: "AWS Academy, EC2, Linux shell, and AI coding CLI", due: "Fri May 22, 11:59 PM ET", dueDate: "2026-05-22T23:59:00-04:00", href: "assignments/a0.html" },
+      { title: "Assignment 1", subtitle: "Analytics with Spark and DuckDB", due: "Fri May 29, 11:59 PM ET", dueDate: "2026-05-29T23:59:00-04:00", href: "assignments/a1.html" },
+      { title: "Assignment 2", subtitle: "Burst-parallel ML with AWS Lambda", due: "Fri Jun 5, 11:59 PM ET", dueDate: "2026-06-05T23:59:00-04:00", href: "#" }
     ],
     staff: [
       { name: "Yue Cheng", role: "Instructor", email: "mrz7dp@virginia.edu", officeHours: "Thursday 3pm to 4pm (Zoom)", website: "https://tddg.github.io" },
@@ -320,7 +320,9 @@ presentation.</p>
         tr.appendChild(date);
         tr.appendChild(topic);
         tr.appendChild(materials);
-        tr.appendChild(el("td", "note-cell", item.notes || ""));
+        var note = el("td", "note-cell");
+        note.innerHTML = item.notes || "";
+        tr.appendChild(note);
         target.appendChild(tr);
       });
   }
@@ -361,7 +363,6 @@ presentation.</p>
       main.appendChild(el("p", "", item.subtitle));
       var meta = el("div", "assignment-meta");
       meta.appendChild(el("span", "", "Due: " + item.due));
-      meta.appendChild(el("span", "", item.status));
       meta.appendChild(el("span", isClosed ? "status-closed" : "status-open", availability));
       row.appendChild(main);
       row.appendChild(meta);

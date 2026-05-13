@@ -87,8 +87,11 @@ def markdown_to_html(markdown: str) -> str:
     out: list[str] = []
     paragraph: list[str] = []
     list_type: str | None = None
+    list_item: str | None = None
+    callout: list[str] = []
     in_code = False
     code_lang = ""
+    code_indent = ""
     code_lines: list[str] = []
     in_section = False
 
@@ -99,8 +102,11 @@ def markdown_to_html(markdown: str) -> str:
             paragraph = []
 
     def close_list() -> None:
-        nonlocal list_type
+        nonlocal list_type, list_item
         if list_type:
+            if list_item is not None:
+                out.append(f"<li>{inline_md(list_item)}</li>")
+                list_item = None
             out.append(f"</{list_type}>")
             list_type = None
 
@@ -112,36 +118,52 @@ def markdown_to_html(markdown: str) -> str:
             out.append("</section>")
             in_section = False
 
+    def flush_callout() -> None:
+        nonlocal callout
+        if callout:
+            out.append(f'<div class="assignment-callout">{inline_md(" ".join(callout))}</div>')
+            callout = []
+
     for raw_line in markdown.splitlines():
         line = raw_line.rstrip()
+        stripped_line = line.lstrip()
 
         if in_code:
-            if line.startswith("```"):
+            if stripped_line.startswith("```"):
                 escaped = html.escape("\n".join(code_lines))
                 lang_class = f' class="language-{html.escape(code_lang, quote=True)}"' if code_lang else ""
                 out.append(f"<pre><code{lang_class}>{escaped}</code></pre>")
                 in_code = False
                 code_lang = ""
+                code_indent = ""
                 code_lines = []
             else:
-                code_lines.append(raw_line)
+                if code_indent and raw_line.startswith(code_indent):
+                    code_lines.append(raw_line[len(code_indent) :])
+                else:
+                    code_lines.append(raw_line)
             continue
 
-        if line.startswith("```"):
+        fence = re.match(r"^(\s*)```(.*)$", line)
+        if fence:
+            flush_callout()
             flush_paragraph()
             close_list()
             in_code = True
-            code_lang = line[3:].strip()
+            code_indent = fence.group(1)
+            code_lang = fence.group(2).strip()
             code_lines = []
             continue
 
         if not line.strip():
+            flush_callout()
             flush_paragraph()
             close_list()
             continue
 
         heading = re.match(r"^(#{1,5})\s+(.+)$", line)
         if heading:
+            flush_callout()
             flush_paragraph()
             close_list()
             level = len(heading.group(1))
@@ -155,6 +177,7 @@ def markdown_to_html(markdown: str) -> str:
 
         image = re.match(r"^!\[([^\]]*)\]\(([^)]+)\)(?:\{width=(\d+)\})?$", line.strip())
         if image:
+            flush_callout()
             flush_paragraph()
             close_list()
             alt = html.escape(image.group(1), quote=True)
@@ -167,28 +190,56 @@ def markdown_to_html(markdown: str) -> str:
         if line.startswith("> "):
             flush_paragraph()
             close_list()
-            out.append(f'<div class="assignment-callout">{inline_md(line[2:].strip())}</div>')
+            callout.append(line[2:].strip())
+            continue
+
+        if callout:
+            starts_new_block = (
+                re.match(r"^[-*]\s+.+$", line)
+                or re.match(r"^\d+\.\s+.+$", line)
+                or re.match(r"^(#{1,5})\s+.+$", line)
+                or re.match(r"^(\s*)```", line)
+                or re.match(r"^!\[([^\]]*)\]\(([^)]+)\)(?:\{width=(\d+)\})?$", line.strip())
+            )
+            if not starts_new_block:
+                callout.append(line.strip())
+                continue
+            flush_callout()
             continue
 
         unordered = re.match(r"^[-*]\s+(.+)$", line)
-        ordered = re.match(r"^\d+\.\s+(.+)$", line)
+        ordered = re.match(r"^(\d+)\.\s+(.+)$", line)
         if unordered or ordered:
+            flush_callout()
             flush_paragraph()
             wanted = "ul" if unordered else "ol"
             if list_type != wanted:
                 close_list()
-                out.append(f"<{wanted}>")
+                if ordered:
+                    start = int(ordered.group(1))
+                    start_attr = f' start="{start}"' if start != 1 else ""
+                    out.append(f"<ol{start_attr}>")
+                else:
+                    out.append("<ul>")
                 list_type = wanted
-            item = unordered.group(1) if unordered else ordered.group(1)
-            out.append(f"<li>{inline_md(item)}</li>")
+            elif list_item is not None:
+                out.append(f"<li>{inline_md(list_item)}</li>")
+            item = unordered.group(1) if unordered else ordered.group(2)
+            list_item = item.strip()
             continue
 
+        if list_type and list_item is not None:
+            list_item += " " + line.strip()
+            continue
+
+        flush_callout()
         close_list()
         paragraph.append(line.strip())
 
     if in_code:
         escaped = html.escape("\n".join(code_lines))
         out.append(f"<pre><code>{escaped}</code></pre>")
+    flush_callout()
     close_section()
     flush_paragraph()
     close_list()

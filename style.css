@@ -628,6 +628,8 @@ h3 {
 
 .assignment-doc pre {
   overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   padding: 16px;
   color: #e7edf5;
   background: #111827;
