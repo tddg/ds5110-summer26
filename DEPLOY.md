@@ -2,32 +2,31 @@
 
 This repo is a plain static website. The recommended deployment path is to publish a generated static tree to the `gh-pages` branch.
 
-## Deploy Main Site Only
-
-This temporarily excludes assignment Markdown, generated assignment HTML, and assignment images:
+## Deploy Site
 
 ```bash
 bash scripts/deploy_gh_pages.sh
 ```
 
-The script copies only:
+The script copies:
 
 ```text
 index.html
 style.css
 app.js
-assets/images/uva.ico
+assets/images/
+assignments/*.html
 .nojekyll
 ```
 
-It also rewrites assignment page links in the deployed copy of `app.js` to `#`, so unpublished assignment pages do not become 404 links.
+It deploys generated assignment HTML files that exist under `assignments/`. To keep an assignment unpublished, do not generate or keep its `assignments/aN.html` file before running the deploy script.
 
-## Deploy With Assignments Later
+## Build Assignments During Deploy
 
-When assignments are ready to publish:
+If you want the deploy script to rebuild assignment HTML before publishing:
 
 ```bash
-INCLUDE_ASSIGNMENTS=1 bash scripts/deploy_gh_pages.sh
+BUILD_ASSIGNMENTS=1 bash scripts/deploy_gh_pages.sh
 ```
 
 That runs:
@@ -36,7 +35,7 @@ That runs:
 python3 scripts/build_assignments.py
 ```
 
-and includes generated `assignments/*.html` plus assignment images.
+and then deploys generated `assignments/*.html`.
 
 ## GitHub Pages Settings
 

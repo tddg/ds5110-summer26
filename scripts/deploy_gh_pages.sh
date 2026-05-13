@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BRANCH="${BRANCH:-gh-pages}"
 REMOTE="${REMOTE:-origin}"
 TMP_DIR="${TMPDIR:-/tmp}/ds5110-summer26-gh-pages"
-INCLUDE_ASSIGNMENTS="${INCLUDE_ASSIGNMENTS:-0}"
+BUILD_ASSIGNMENTS="${BUILD_ASSIGNMENTS:-0}"
 
 cd "$ROOT"
 
@@ -17,10 +17,10 @@ fi
 REMOTE_URL="$(git remote get-url "$REMOTE")"
 
 echo "Deploy target: $REMOTE_URL branch $BRANCH"
-echo "Include assignment pages: $INCLUDE_ASSIGNMENTS"
+echo "Build assignment pages before deploy: $BUILD_ASSIGNMENTS"
 echo
 
-if [[ "$INCLUDE_ASSIGNMENTS" == "1" ]]; then
+if [[ "$BUILD_ASSIGNMENTS" == "1" ]]; then
   echo "Building assignment pages from Markdown..."
   python3 scripts/build_assignments.py
 fi
@@ -36,24 +36,14 @@ if [[ -f assets/images/uva.ico ]]; then
   cp assets/images/uva.ico "$TMP_DIR/assets/images/"
 fi
 
-if [[ "$INCLUDE_ASSIGNMENTS" == "1" ]]; then
+if find assignments -maxdepth 1 -name "*.html" -type f | grep -q .; then
   mkdir -p "$TMP_DIR/assignments"
   find assignments -maxdepth 1 -name "*.html" -type f -exec cp {} "$TMP_DIR/assignments/" \;
-  if [[ -d assets/images/a0 ]]; then
-    mkdir -p "$TMP_DIR/assets/images/a0"
-    cp -R assets/images/a0/. "$TMP_DIR/assets/images/a0/"
-  fi
-else
-  python3 - "$TMP_DIR/app.js" <<'PY'
-from pathlib import Path
-import re
-import sys
+fi
 
-path = Path(sys.argv[1])
-text = path.read_text(encoding="utf-8")
-text = re.sub(r'href:\s*"assignments/[^"]+\.html"', 'href: "#"', text)
-path.write_text(text, encoding="utf-8")
-PY
+if [[ -d assets/images ]]; then
+  mkdir -p "$TMP_DIR/assets/images"
+  find assets/images -mindepth 1 ! -name ".DS_Store" -exec cp -R {} "$TMP_DIR/assets/images/" \;
 fi
 
 cat > "$TMP_DIR/.nojekyll" <<'EOF'
