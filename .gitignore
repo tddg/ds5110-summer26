@@ -16,7 +16,7 @@ tmp/
 
 # Assignment content is intentionally excluded from GitHub Pages for now.
 # Remove these rules, or use `git add -f`, when assignments are ready to publish.
-assignments/*.html
+assignments/a1.html
+assignments/a2.html
 assignments/src/a1.md
 assignments/src/a2.md
-assets/images/a0/

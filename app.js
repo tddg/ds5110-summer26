@@ -91,7 +91,9 @@ Be prepared to bring your own laptop computer to the class.
         <h3>Programming assignments</h3>
         <p>We will have assignments during the course:</p>
         <ul>
-          <li>Assignment 0: TBD.</li>
+          <li>Assignment 0: AWS Academy, EC2, Linux shell, and AI coding CLI.</li>
+          <li>Assignment 1: Analytics with Spark and DuckDB.</li>
+          <li>Assignment 2: Burst-parallel ML with AWS Lambda.</li>
         </ul>
       </section>
 
@@ -104,13 +106,11 @@ Be prepared to bring your own laptop computer to the class.
         <h3>Grading</h3>
         <p>Your grade will be calculated as follows:</p>
         <ul>
-          <li>5% quizzes</li>
-          <li>5% assignment 0</li>
-          <li>10% assignment 1</li>
-          <li>15% assignment 2</li>
-          <li>15% midterm exam</li>
-          <li>15% final exam</li>
-          <li>Extra credit: 5% participation through in-class Q&amp;A</li>
+          <li>10% assignment 0</li>
+          <li>20% assignment 1</li>
+          <li>20% assignment 2</li>
+          <li>30% project</li>
+          <li>20% final presentation</li>
         </ul>
 
         <h4>Midterm and final exams</h4>
@@ -188,7 +188,7 @@ presentation.</p>
       { week: 2, date: "Mon May 25", topic: "Memorial Day", materials: [], notes: "No class" },
       { week: 2, date: "Tue May 26", topic: "Cloud and serverless computing", materials: [], notes: "" },
       { week: 2, date: "Wed May 27", topic: "Cloud storage (AWS S3)", materials: [], notes: "" },
-      { week: 2, date: "Thu May 28", topic: "Midterm presentation + discussion", materials: [], notes: "" },
+      { week: 2, date: "Thu May 28", topic: "Project discussion", materials: [], notes: "" },
       { week: 2, date: "Fri May 29", topic: "Lab 2", materials: [], notes: "Assignment 1 due<br>Assignment 2 out" },
       { week: 3, date: "Mon Jun 1", topic: "AI systems foundation", materials: [], notes: "" },
       { week: 3, date: "Tue Jun 2", topic: "Model optimization", materials: [], notes: "" },
