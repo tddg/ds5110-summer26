@@ -6,7 +6,7 @@
     announcements: [
       {
         title: "Welcome",
-        html: `Welcome to DS 5110!<br> Fill out the <a href="https://forms.gle/WPeAd8CFqTkt6TZr6" target="_blank" rel="noreferrer">background survey</a> by 05/17.`,
+        html: `Welcome to DS 5110!<br> Fill out the <a href="https://forms.gle/WPeAd8CFqTkt6TZr6" target="_blank" rel="noreferrer">background survey</a> by 05/16.`,
         updated: "May 13, 2026"
       },
     ],
