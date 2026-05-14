@@ -6,8 +6,8 @@
     announcements: [
       {
         title: "Welcome",
-        body: "Welcome to DS 5110!",
-        updated: "May 18, 2026"
+        html: `Welcome to DS 5110!<br> Fill out the <a href="https://forms.gle/WPeAd8CFqTkt6TZr6" target="_blank" rel="noreferrer">background survey</a> by 05/17.`,
+        updated: "May 13, 2026"
       },
     ],
     meta: [
@@ -180,7 +180,11 @@ presentation.</p>
       </section>
     `,
     schedule: [
-      { week: 1, date: "Mon May 18", topic: "Introduction", materials: [{ text: "Slides", href: "assets/docs/lec1-intro.pdf" }], notes: "Assignment 0 out" },
+      { week: 1, date: "Mon May 18", topic: "Introduction", 
+		materials: [
+			{ text: "Slides", href: "assets/docs/lec1-intro.pdf" },
+			{ text: "Background survey", href: "https://forms.gle/WPeAd8CFqTkt6TZr6" }
+		], notes: "Assignment 0 out" },
       { week: 1, date: "Tue May 19", topic: "AI coding tools, agents", materials: [], notes: "" },
       { week: 1, date: "Wed May 20", topic: "Python data types, parallel Python", materials: [], notes: "" },
       { week: 1, date: "Thu May 21", topic: "MapReduce, Spark", materials: [], notes: "" },
@@ -208,7 +212,8 @@ presentation.</p>
     ],
     staff: [
       { name: "Yue Cheng", role: "Instructor", email: "mrz7dp@virginia.edu", officeHours: "Thursday 3pm to 4pm (Zoom)", website: "https://tddg.github.io" },
-      { name: "Teaching Assistant", role: "TA", email: "TBD", officeHours: "TBD", website: "" }
+      { name: "Yuyang Cheng", role: "GTA", email: "jrm9ga@virginia.edu", officeHours: "TBD" },
+      { name: "Parvati Viswanathan", role: "GTA", email: "bsg5ec@virginia.edu", officeHours: "TBD" }
     ]
   };
 
@@ -259,7 +264,13 @@ presentation.</p>
       var article = el("article", index === 0 ? "announcement-item latest" : "announcement-item");
       article.appendChild(el("span", "announcement-date", item.updated));
       article.appendChild(el("h3", "", item.title));
-      article.appendChild(el("p", "", item.body));
+      if (item.html) {
+        var body = el("div", "announcement-body");
+        body.innerHTML = item.html;
+        article.appendChild(body);
+      } else {
+        article.appendChild(el("p", "", item.body));
+      }
       target.appendChild(article);
     });
 
@@ -311,9 +322,10 @@ presentation.</p>
         if (item.materials.length === 0) {
           materials.textContent = "TBD";
         } else {
-          item.materials.forEach(function (material, index) {
-            if (index > 0) materials.appendChild(document.createTextNode(" "));
-            materials.appendChild(link(material.text, material.href));
+          item.materials.forEach(function (material) {
+            var materialLine = el("div", "material-line");
+            materialLine.appendChild(link(material.text, material.href));
+            materials.appendChild(materialLine);
           });
         }
 

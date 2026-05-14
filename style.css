@@ -476,6 +476,10 @@ h3 {
   color: var(--muted);
 }
 
+.materials-cell .material-line + .material-line {
+  margin-top: 6px;
+}
+
 .materials-grid,
 .staff-grid {
   display: grid;
