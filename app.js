@@ -184,7 +184,8 @@ presentation.</p>
 		materials: [
 			{ text: "Lec1a: Introduction", href: "assets/docs/lec1a-intro.pdf" },
 			{ text: "Lec1b: Shell, TUI, AI coding CLI", href: "assets/docs/lec1b-shell.pdf" },
-			{ text: "Background survey", href: "https://forms.gle/WPeAd8CFqTkt6TZr6" }
+			{ text: "Background survey", href: "https://forms.gle/WPeAd8CFqTkt6TZr6" },
+			{ text: "Team information form", href: "https://forms.gle/4N5uysb3B8AZmMWt6" }
 		], notes: "Assignment 0 out" },
       { week: 1, date: "Tue May 19", topic: "AI coding tools, agents", materials: [], notes: "" },
       { week: 1, date: "Wed May 20", topic: "Python data types, parallel Python", materials: [], notes: "" },

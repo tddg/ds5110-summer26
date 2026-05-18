@@ -58,7 +58,17 @@ echo "This updates the GitHub Pages branch only; it does not commit changes on y
 read -r -p "Continue? [y/N] " answer
 case "$answer" in
   y|Y|yes|YES)
-    git push -f "$REMOTE" "$BRANCH"
+    for attempt in 1 2 3; do
+      if git push -f "$REMOTE" "$BRANCH"; then
+        break
+      fi
+      if [[ "$attempt" -eq 3 ]]; then
+        echo "Push failed after 3 attempts." >&2
+        exit 1
+      fi
+      echo "Push attempt $attempt failed; retrying in 3 seconds..." >&2
+      sleep 3
+    done
     ;;
   *)
     echo "Deploy cancelled. Generated site remains at $TMP_DIR"
