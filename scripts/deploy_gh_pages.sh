@@ -26,24 +26,20 @@ if [[ "$BUILD_ASSIGNMENTS" == "1" ]]; then
 fi
 
 rm -rf "$TMP_DIR"
-mkdir -p "$TMP_DIR/assets/images"
+mkdir -p "$TMP_DIR"
 
 cp index.html "$TMP_DIR/"
 cp style.css "$TMP_DIR/"
 cp app.js "$TMP_DIR/"
-
-if [[ -f assets/images/uva.ico ]]; then
-  cp assets/images/uva.ico "$TMP_DIR/assets/images/"
-fi
 
 if find assignments -maxdepth 1 -name "*.html" -type f | grep -q .; then
   mkdir -p "$TMP_DIR/assignments"
   find assignments -maxdepth 1 -name "*.html" -type f -exec cp {} "$TMP_DIR/assignments/" \;
 fi
 
-if [[ -d assets/images ]]; then
-  mkdir -p "$TMP_DIR/assets/images"
-  find assets/images -mindepth 1 ! -name ".DS_Store" -exec cp -R {} "$TMP_DIR/assets/images/" \;
+if [[ -d assets ]]; then
+  mkdir -p "$TMP_DIR/assets"
+  find assets -mindepth 1 ! -name ".DS_Store" -exec cp -R {} "$TMP_DIR/assets/" \;
 fi
 
 cat > "$TMP_DIR/.nojekyll" <<'EOF'

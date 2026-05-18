@@ -14,7 +14,7 @@ The script copies:
 index.html
 style.css
 app.js
-assets/images/
+assets/
 assignments/*.html
 .nojekyll
 ```
