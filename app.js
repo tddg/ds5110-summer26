@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec2",
+        html: `Lecture 2's slides are uploaded.<br> Fill out <a href="https://forms.gle/1VvzPu4DjyWy5B2c7" target="_blank">team info form</a>.`,
+        updated: "May 18, 2026"
+      },
+      {
         title: "Welcome",
         html: `Welcome to DS 5110!<br> Fill out the <a href="https://forms.gle/WPeAd8CFqTkt6TZr6" target="_blank" rel="noreferrer">background survey</a> by 05/16.<br> Lecture 1's slides are uploaded.`,
         updated: "May 13, 2026"
@@ -185,9 +190,11 @@ presentation.</p>
 			{ text: "Lec1a: Introduction", href: "assets/docs/lec1a-intro.pdf" },
 			{ text: "Lec1b: Shell, TUI, AI coding CLI", href: "assets/docs/lec1b-shell.pdf" },
 			{ text: "Background survey", href: "https://forms.gle/WPeAd8CFqTkt6TZr6" },
-			{ text: "Team information form", href: "https://forms.gle/4N5uysb3B8AZmMWt6" }
+			{ text: "Team information form", href: "https://forms.gle/1VvzPu4DjyWy5B2c7" }
 		], notes: "Assignment 0 out" },
-      { week: 1, date: "Tue May 19", topic: "AI coding tools, agents", materials: [], notes: "" },
+      { week: 1, date: "Tue May 19", topic: "Agent context engineering", materials: [
+			{ text: "Lec2: Prompt engineering to context engineering", href: "assets/docs/lec2-ctx-engineering.pdf" },
+		], notes: "" },
       { week: 1, date: "Wed May 20", topic: "Python data types, parallel Python", materials: [], notes: "" },
       { week: 1, date: "Thu May 21", topic: "MapReduce, Spark", materials: [], notes: "" },
       { week: 1, date: "Fri May 22", topic: "Lab 1", materials: [], notes: "Assignment 0 due<br>Assignment 1 out" },
