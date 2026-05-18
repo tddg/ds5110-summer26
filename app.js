@@ -6,7 +6,7 @@
     announcements: [
       {
         title: "Welcome",
-        html: `Welcome to DS 5110!<br> Fill out the <a href="https://forms.gle/WPeAd8CFqTkt6TZr6" target="_blank" rel="noreferrer">background survey</a> by 05/16.`,
+        html: `Welcome to DS 5110!<br> Fill out the <a href="https://forms.gle/WPeAd8CFqTkt6TZr6" target="_blank" rel="noreferrer">background survey</a> by 05/16.<br> Lecture 1's slides are uploaded.`,
         updated: "May 13, 2026"
       },
     ],
@@ -182,7 +182,8 @@ presentation.</p>
     schedule: [
       { week: 1, date: "Mon May 18", topic: "Introduction", 
 		materials: [
-			{ text: "Slides", href: "assets/docs/lec1-intro.pdf" },
+			{ text: "Lec1a: Introduction", href: "assets/docs/lec1a-intro.pdf" },
+			{ text: "Lec1b: Shell, TUI, AI coding CLI", href: "assets/docs/lec1b-shell.pdf" },
 			{ text: "Background survey", href: "https://forms.gle/WPeAd8CFqTkt6TZr6" }
 		], notes: "Assignment 0 out" },
       { week: 1, date: "Tue May 19", topic: "AI coding tools, agents", materials: [], notes: "" },
