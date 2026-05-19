@@ -37,6 +37,7 @@
 <section>
 <h2>FAQs</h2>
 <ul>
+<li>Typo fixed: Rows containing <del>cloud</del> --&gt; Rows containing rust.</li>
 <li>If you use WSL, make sure to store your SSH key file under your Ubuntu home directory. Windows filesystem does not work well with <code>chmod 400</code>. How to locate your <code>/home/user</code> directory is by typing <code>cd</code> and that will automatically bring you to your home dir.</li>
 <li>Accessing the SSH key file stored under a cloud drive (OneDrive, Dropbox, or Google Drive) might have permission issue. If that happens, move <code>vockey.pem</code> to a local directory not under any cloud-managed folder and that should fix the permission issue.</li>
 <li>For Windows user, we recommend installing WSL (the Windows Subsystem for Linux). You can find the installation documentation <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noreferrer">here</a>. With WSL, you can use the familiar Linux commands for SSH, file operations, and all other kinds of <a href="https://linuxcommand.org/lc3_lts0010.php" target="_blank" rel="noreferrer">shell-related</a> tasks.</li>
@@ -162,7 +163,7 @@ Rows containing python: &lt;number&gt;
 Rows containing java: &lt;number&gt;
 Rows containing javascript: &lt;number&gt;
 Rows containing sql: &lt;number&gt;
-Rows containing cloud: &lt;number&gt;
+Rows containing rust: &lt;number&gt;
 Most common keyword: &lt;keyword&gt;</code></pre>
 <ol start="6">
 <li>The script should be safe to run multiple times. If the zip file or extracted directory already exists, it should not crash.</li>

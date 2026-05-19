@@ -59,6 +59,7 @@ def inline_md(text: str) -> str:
         return f'<a href="{href}"{target}>{label}</a>'
 
     text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", repl_link, text)
+    text = re.sub(r"~~(.+?)~~", r"<del>\1</del>", text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(r"\*([^*]+)\*", r"<em>\1</em>", text)
 
