@@ -21,6 +21,14 @@ assignments/*.html
 
 It deploys generated assignment HTML files that exist under `assignments/`. To keep an assignment unpublished, do not generate or keep its `assignments/aN.html` file before running the deploy script.
 
+If `exiftool` is installed, the deploy script also updates PDF titles in the temporary deployed copy so browser tabs show each PDF filename instead of stale slide-deck metadata:
+
+```bash
+brew install exiftool
+```
+
+ExifTool backup files ending in `_original` are removed from the temporary deployed copy after each title update.
+
 ## Build Assignments During Deploy
 
 If you want the deploy script to rebuild assignment HTML before publishing:

@@ -42,6 +42,20 @@ if [[ -d assets ]]; then
   find assets -mindepth 1 ! -name ".DS_Store" -exec cp -R {} "$TMP_DIR/assets/" \;
 fi
 
+if [[ -d "$TMP_DIR/assets/docs" ]]; then
+  if command -v exiftool >/dev/null 2>&1; then
+    echo "Setting deployed PDF titles to filenames..."
+    while IFS= read -r -d '' pdf; do
+      title="$(basename "$pdf")"
+      exiftool -Title="$title" "$pdf" >/dev/null
+      rm -f "${pdf}_original"
+    done < <(find "$TMP_DIR/assets/docs" -type f -iname "*.pdf" -print0)
+  else
+    echo "Warning: exiftool not found; deployed PDF browser titles may use stale PDF metadata." >&2
+    echo "Install with: brew install exiftool" >&2
+  fi
+fi
+
 cat > "$TMP_DIR/.nojekyll" <<'EOF'
 EOF
 
