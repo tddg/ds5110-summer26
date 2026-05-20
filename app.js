@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec3",
+        html: `Lecture 3's slides are uploaded.<br> Fill out <a href="https://forms.gle/1VvzPu4DjyWy5B2c7" target="_blank">team info form</a>.`,
+        updated: "May 19, 2026"
+      },
+      {
         title: "Lec2",
         html: `Lecture 2's slides are uploaded.<br> Fill out <a href="https://forms.gle/1VvzPu4DjyWy5B2c7" target="_blank">team info form</a>.`,
         updated: "May 18, 2026"
@@ -195,7 +200,10 @@ presentation.</p>
       { week: 1, date: "Tue May 19", topic: "Agent context engineering", materials: [
 			{ text: "Lec2: Prompt engineering to context engineering", href: "assets/docs/lec2-ctx-engineering.pdf" },
 		], notes: "" },
-      { week: 1, date: "Wed May 20", topic: "Python data types, parallel Python", materials: [], notes: "" },
+      { week: 1, date: "Wed May 20", topic: "Python numeric types, parallel processing", 
+		materials: [
+			{ text: "Lec3: Python numeric types, parallel processing", href: "assets/docs/lec3-python-dtypes-parallel.pdf" },
+		], notes: "" },
       { week: 1, date: "Thu May 21", topic: "MapReduce, Spark", materials: [], notes: "" },
       { week: 1, date: "Fri May 22", topic: "Lab 1", materials: [], notes: "Assignment 0 due<br>Assignment 1 out" },
       { week: 2, date: "Mon May 25", topic: "Memorial Day", materials: [], notes: "No class" },
