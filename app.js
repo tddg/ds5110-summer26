@@ -206,6 +206,8 @@ presentation.</p>
 		materials: [
 			{ text: "Lec3: Python numeric types, parallel processing", href: "assets/docs/lec3-python-dtypes-parallel.pdf" },
 			{ text: "Video", href: "https://edstem.org/us/courses/98636/discussion/8085145" },
+			{ text: "Notebook demo", href: "assets/datasets/lec3_python_dtypes_demo.ipynb" },
+			{ text: "Thinking Machines: Defeating Nondeterminism in LLM Inference", href: "https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/" },
 		], notes: "" },
       { week: 1, date: "Thu May 21", topic: "MapReduce, Spark", materials: [], notes: "" },
       { week: 1, date: "Fri May 22", topic: "Lab 1", materials: [], notes: "Assignment 0 due<br>Assignment 1 out" },
