@@ -194,15 +194,18 @@ presentation.</p>
 		materials: [
 			{ text: "Lec1a: Introduction", href: "assets/docs/lec1a-intro.pdf" },
 			{ text: "Lec1b: Shell, TUI, AI coding CLI", href: "assets/docs/lec1b-shell.pdf" },
+			{ text: "Video", href: "https://edstem.org/us/courses/98636/discussion/8085142" },
 			{ text: "Background survey", href: "https://forms.gle/WPeAd8CFqTkt6TZr6" },
 			{ text: "Team information form", href: "https://forms.gle/1VvzPu4DjyWy5B2c7" }
 		], notes: "Assignment 0 out" },
       { week: 1, date: "Tue May 19", topic: "Agent context engineering", materials: [
 			{ text: "Lec2: Prompt engineering to context engineering", href: "assets/docs/lec2-ctx-engineering.pdf" },
+			{ text: "Video", href: "https://edstem.org/us/courses/98636/discussion/8085144" },
 		], notes: "" },
       { week: 1, date: "Wed May 20", topic: "Python numeric types, parallel processing", 
 		materials: [
 			{ text: "Lec3: Python numeric types, parallel processing", href: "assets/docs/lec3-python-dtypes-parallel.pdf" },
+			{ text: "Video", href: "https://edstem.org/us/courses/98636/discussion/8085145" },
 		], notes: "" },
       { week: 1, date: "Thu May 21", topic: "MapReduce, Spark", materials: [], notes: "" },
       { week: 1, date: "Fri May 22", topic: "Lab 1", materials: [], notes: "Assignment 0 due<br>Assignment 1 out" },
