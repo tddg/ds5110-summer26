@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec4",
+        html: `Lecture 4's slides are uploaded.`,
+        updated: "May 20, 2026"
+      },
+      {
         title: "Lec3",
         html: `Lecture 3's slides are uploaded.<br> Fill out <a href="https://forms.gle/1VvzPu4DjyWy5B2c7" target="_blank">team info form</a>.`,
         updated: "May 19, 2026"
@@ -209,7 +214,13 @@ presentation.</p>
 			{ text: "Notebook demo", href: "https://github.com/tddg/ds5110-summer26/blob/main/assets/datasets/lec3_python_dtypes_demo.ipynb" },
 			{ text: "Thinking Machines: Defeating Nondeterminism in LLM Inference", href: "https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/" },
 		], notes: "" },
-      { week: 1, date: "Thu May 21", topic: "MapReduce, Spark", materials: [], notes: "" },
+      { week: 1, date: "Thu May 21", topic: "GFS, MapReduce, Spark", 
+		materials: [
+			{ text: "Lec4: GFS, MapReduce, and Spark", href: "assets/docs/lec4-mapreduce-spark.pdf" },
+			{ text: "GFS paper", href: "https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf" },
+			{ text: "MapReduce paper", href: "https://www.usenix.org/conference/osdi-04/mapreduce-simplified-data-processing-large-clusters" },
+			{ text: "Spark RDD paper", href: "https://www.usenix.org/conference/nsdi12/technical-sessions/presentation/zaharia" },
+		], notes: "" },
       { week: 1, date: "Fri May 22", topic: "Lab 1", materials: [], notes: "Assignment 0 due<br>Assignment 1 out" },
       { week: 2, date: "Mon May 25", topic: "Memorial Day", materials: [], notes: "No class" },
       { week: 2, date: "Tue May 26", topic: "Cloud and serverless computing", materials: [], notes: "" },
