@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 1 | DS5110 Summer 2026</title>
+  <link rel="icon" href="../assets/images/uva.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=20260428-3">
+</head>
+<body class="doc-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html#home" class="nav-logo">DS5110</a>
+      <div class="nav-links" aria-label="Course sections">
+        <a href="../index.html#syllabus">Syllabus</a>
+        <a href="../index.html#schedule">Schedule</a>
+        <a href="../index.html#materials">Materials</a>
+        <a href="../index.html#assignments">Assignments</a>
+        <a href="../index.html#staff">Staff</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="doc-shell">
+    <a class="doc-back" href="../index.html#assignments">Back to assignments</a>
+
+    <article class="assignment-doc">
+      <header>
+        <p class="assignment-kicker">Assignment 1</p>
+        <h1>Analytics with Apache Spark and DuckDB</h1>
+        <p class="assignment-due">Due Fri May 29, 11:59 PM ET</p>
+      </header>
+
+<section>
+<h2>FAQs</h2>
+<ul>
+<li><strong>PLEASE DO NOT PROCRASTINATE!!</strong> If you wait till the last minute to work on your assignment and ask for help, no one will be able to help you. These assignments are not hard, but some steps might take longer than you expect, esp. when you are new to it. So, start working on it <strong>EARLY</strong>.</li>
+<li>For A1, if your decide to create new VMs, you need to follow the same practice as you did for A0 and explicitly add a new security group by allowing all TCP traffic. This is to ensure that your HDFS workers and Spark workers are able to communicate across the network using TCP.</li>
+</ul>
+</section>
+<section>
+<h2>Overview</h2>
+<p>This assignment is designed to support your in-class understanding of how big data analytics stacks work and get some hands-on experience in using them. You will need to deploy Apache Spark and DuckDB and implement a small graph analytics application (PageRank) on them using OpenCode. You will produce a short report detailing your observations and takeaways.</p>
+</section>
+<section>
+<h2>Learning outcomes</h2>
+<p>The objectives of this assignment are to:</p>
+<ul>
+<li>Configure and deploy Apache Spark using remote SSH and Linux terminal.</li>
+<li>Write simple Spark applications and launch them in a cluster.</li>
+<li>Describe how a single-node Apache Spark compares with DuckDB in application performance.</li>
+</ul>
+</section>
+<section>
+<h2>Part 0: Environment setup</h2>
+<p>You will complete this assignment in AWS Academy.</p>
+<p>In this assignment, you should create one EC2 VM instance of type <code>t3.large</code>.  Spark uses Java. So, as the first step, you should run the following commands on every EC2 instance to install Java. Ubuntu 24.04 LTS comes with <code>python3</code> (<code>Python 3.12.3</code>) installed. So you don&#x27;t need to manually install python yourself. Of course, you can do this from within OpenCode using an LLM.</p>
+<pre><code class="language-bash">$ sudo apt update
+$ sudo apt install -y openjdk-8-jdk</code></pre>
+</section>
+<section>
+<h2>Part 1: Software deployment</h2>
+<h3>Apache Spark</h3>
+<p><a href="https://spark.apache.org/docs/latest/index.html" target="_blank" rel="noreferrer">Apache Spark</a> is a powerful open-source analytics engine for big data processing. Spark is built on its core idea of <a href="https://www.usenix.org/system/files/conference/nsdi12/nsdi12-final138.pdf" target="_blank" rel="noreferrer">Resilient Distributed Datasets (RDDs)</a>. Spark standalone consists of a set of daemons: a <code>Master</code> daemon, and a set of <code>Worker</code> daemons. Spark applications are coordinated by a <code>SparkContext</code> object, which will connect to the <code>Master</code>, which is responsible for allocating resources across applications. Once connected, Spark acquires <code>Executors</code> on every <code>Worker</code> node in the cluster, which are processes that run computations and store data for your applications. Finally, the application&#x27;s tasks are handed to <code>Executors</code> for execution. We will use Spark in standalone mode, which means that it does not need to rely on resource management systems like YARN.</p>
+<p>Instructions on deploying a Spark cluster can be found in Spark&#x27;s <a href="https://spark.apache.org/docs/latest/spark-standalone.html" target="_blank" rel="noreferrer">official document</a>. Or, just use AI to install PySpark for you.</p>
+</section>
+<section>
+<h2>Part 2: PageRank</h2>
+<p>In this part, you will implement the <a href="http://infolab.stanford.edu/~backrub/google.html" target="_blank" rel="noreferrer">PageRank algorithm</a> (§2.1) (or <a href="https://en.wikipedia.org/wiki/PageRank#Simplified_algorithm" target="_blank" rel="noreferrer">the Wikipedia version</a>), which is an algorithm used by search engines like Google to evaluate the quality of links to a webpage. The algorithm can be summarized as follows:</p>
+<ol>
+<li>Set initial rank of each page to be 1.</li>
+<li>On each iteration, each page p contributes to its outgoing neighbors a value of rank(p)/(# of outgoing neighbors of p).</li>
+<li>Update each page&#x27;s rank to be 0.15 + 0.85 * (sum of contributions).</li>
+<li>Go to next iteration.</li>
+</ol>
+<p>In this assignment, we will run the algorithm on the. <a href="https://snap.stanford.edu/data/web-BerkStan.html" target="_blank" rel="noreferrer"><code>Berkeley-Stanford</code> web graph dataset</a>. Each line in the dataset consists of a page and one of its neighbors. Ask the AI agent to decompress the downloaded <code>.gz</code> dataset.</p>
+<p>If you do it manually, you should use the following commands:</p>
+<pre><code class="language-sh">$ wget https://snap.stanford.edu/data/web-BerkStan.txt.gz
+$ gunzip web-BerkStan.txt.gz
+$ hdfs dfs -copyFromLocal web-BerkStan.txt.gz /</code></pre>
+<p><strong>In this part, always run the algorithm for a total of 10 iterations.</strong> However, for debugging purpose, you may use a smaller iteration number, say 3 or 4 so that you don&#x27;t need to wait for too long to see the result.</p>
+<p>Your algorithm should <strong>initialize ranks only from pages that have outgoing links and only keep pages that receive contributions in each iteration</strong>.</p>
+<p>This part features three tasks as follows:</p>
+<ul>
+<li><strong>Task 1.</strong> Write a PySpark application that implements the PageRank algorithm. Your code should use both the two CPU cores on your VM. Your PageRank application should output the following two results:</li>
+</ul>
+<ol>
+<li>Print the first 50 rows with the highest ranks;</li>
+<li>Save the computed results as a csv file;</li>
+<li>Save the measured time result as a separate log file.</li>
+</ol>
+<ul>
+<li><strong>Task 2.</strong> Implement the same PageRank algorithm, but with DuckDB. Use this database-based implementation as a way to verify the result from Task 1. You should use the AI agent to:</li>
+</ul>
+<ol>
+<li>Install DuckDB on your VM;</li>
+<li>Launch the DuckDB instance;</li>
+<li>Load the dataset into it;</li>
+<li>Use SQL to implement the iterative PageRank algorithm;</li>
+<li>Measure the time it takes for the DuckDB version to complete 10 iterations;</li>
+<li>Save the first 50 rows as a csv file;</li>
+<li>Save the measured time result as a separate log file.</li>
+</ol>
+<ul>
+<li><strong>Task 3.</strong> Write a Spark program that uses its built-in PageRank lbirary to verify the results. You should ask the AI agent to switch to Spark&#x27;s <a href="https://graphframes.io/" target="_blank" rel="noreferrer">GraphFrames</a> framework, which expose a <a href="https://graphframes.io/api/python/graphframes.html#graphframes.GraphFrame.pageRank" target="_blank" rel="noreferrer">PageRank API</a>. Make sure that the AI agent implements the same PageRank algorithm as you did before with Task 1 and 2.</li>
+</ul>
+<ol>
+<li>Measure the time it takes for Spark GraphFrames to complete 10 iterations;</li>
+<li>Save the first 50 rows as a csv file;</li>
+<li>Save the measured time result as a separate log file;</li>
+<li>Save the entire session transcript as a separate markdown file: this transcript markdown file should contain all your interactive conversation history covering Task 1-3.</li>
+</ol>
+<ul>
+<li><strong>Task 4.</strong> Prepare a report by asking your AI agent to organize all responses from this session into a single HTML file. The report should let you visually review the exploration process, including the key results from the three PageRank implementations shown side by side. Present or reason about the differences in performance or your own findings, and ask the AI agent to include your reasoning in the generated HTML. The HTML idea is drawn from <a href="https://x.com/trq212/status/2052809885763747935?s=20" target="_blank" rel="noreferrer">this X from Claude Code</a>.</li>
+</ul>
+</section>
+<section>
+<h2>Deliverables</h2>
+<p>You should submit a <code>tar.gz</code> file to Canvas, which follows the naming convention of <code>LastName_FirstName_ComputingID_A1.tar.gz</code>. The submitted file should include:</p>
+<ul>
+<li>the source-code files containing the code of each task (each file should be meaningfully named so that the teaching staff can know which file is for which task);</li>
+<li>the opencode session transcript markdown file that records all your conversations with AI, including model&#x27;s thinking, tool details, and assistant metadata;</li>
+<li>the <strong>HTML report</strong> co-authored by both you and your AI agent.</li>
+</ul>
+</section>
+    </article>
+  </main>
+</body>
+</html>

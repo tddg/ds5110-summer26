@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 0 | DS5110 Summer 2026</title>
+  <link rel="icon" href="../assets/images/uva.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v=20260428-3">
+</head>
+<body class="doc-page">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html#home" class="nav-logo">DS5110</a>
+      <div class="nav-links" aria-label="Course sections">
+        <a href="../index.html#syllabus">Syllabus</a>
+        <a href="../index.html#schedule">Schedule</a>
+        <a href="../index.html#materials">Materials</a>
+        <a href="../index.html#assignments">Assignments</a>
+        <a href="../index.html#staff">Staff</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="doc-shell">
+    <a class="doc-back" href="../index.html#assignments">Back to assignments</a>
+
+    <article class="assignment-doc">
+      <header>
+        <p class="assignment-kicker">Assignment 0</p>
+        <h1>Using AWS Academy, EC2, Linux Shell, and AI Coding CLI</h1>
+        <p class="assignment-due">Due Fri May 22, 11:59 PM ET</p>
+      </header>
+
+<section>
+<h2>FAQs</h2>
+<ul>
+<li>This is a <strong>group assignment</strong>. Only one student needs to submit on Canvas.</li>
+<li>Typo fixed: Rows containing <del>cloud</del> --&gt; Rows containing rust.</li>
+<li>If you use WSL, make sure to store your SSH key file under your Ubuntu home directory. Windows filesystem does not work well with <code>chmod 400</code>. How to locate your <code>/home/user</code> directory is by typing <code>cd</code> and that will automatically bring you to your home dir.</li>
+<li>Accessing the SSH key file stored under a cloud drive (OneDrive, Dropbox, or Google Drive) might have permission issue. If that happens, move <code>vockey.pem</code> to a local directory not under any cloud-managed folder and that should fix the permission issue.</li>
+<li>For Windows user, we recommend installing WSL (the Windows Subsystem for Linux). You can find the installation documentation <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noreferrer">here</a>. With WSL, you can use the familiar Linux commands for SSH, file operations, and all other kinds of <a href="https://linuxcommand.org/lc3_lts0010.php" target="_blank" rel="noreferrer">shell-related</a> tasks.</li>
+<li>To copy your submission file from remote EC2 to local, you can use <code>scp</code> (SSH copy). To do so:</li>
+</ul>
+<pre><code class="language-sh">scp -i vockey.pem ubuntu@YOUR_ADDRESS:PATH_TO_YOUR_FILE .</code></pre>
+<p>Note that calling scp from EC2 to copy file out will not work as your computer is behind NAT so it is almost not possible to be directly addressable. You need to run scp from your computer to copy file in from a remote EC2, which is addressable.</p>
+</section>
+<section>
+<h2>Overview</h2>
+<p>To ensure a uniform development environment, you will do all your assignments for DS5110 using <a href="https://www.awsacademy.com/vforcesite/LMS_Login" target="_blank" rel="noreferrer">AWS Academy</a>. Through AWS Academy, you can get access to a wide range of computing, storage, and network resources on <a href="https://aws.amazon.com" target="_blank" rel="noreferrer">Amazon Web Services</a> (AWS). If you haven&#x27;t worked with AWS Academy before, you need to go through the AWS Academcy onboarding process.</p>
+<p>This assignment will walk you through the AWS Academy registration process and show you how to use AWS and Linux EC2 from AWS Academy to setup an environment for upcoming programming assignments.</p>
+</section>
+<section>
+<h2>Learning outcomes</h2>
+<p>After completing this assignment, you should be able to:</p>
+<ul>
+<li>Create and SSH into an EC2 virtual machine (EC2) instance.</li>
+<li>Create a remote Jupyter Notebook server running on AWS EC2.</li>
+<li>Get familiar with AI coding CLIs (<a href="https://opencode.ai/" target="_blank" rel="noreferrer">opencode</a>).</li>
+<li>Get familiar with basic Linux shell commands (browsing file system, installing packages, etc.).</li>
+</ul>
+</section>
+<section>
+<h2>Part 0: Register an AWS Academy account</h2>
+<p>You will receive a course invitation email sent to your <code>virginia.edu</code> email. You will need to register with AWS Academy Canvas (note this is different from UVA Canvas) before you can participate in the AWS Academy Learner Lab. To register, click on <code>Get Started</code> in the invitation email. It will bring you to the <code>Welcome Aboard</code> web page. Enter a password under your email, select <code>Eastern Time (US &amp; Canada)</code> as the Time Zone, and click on <code>Register</code>.</p>
+<p>After successfully registered, you will have access to your AWS Academy portal. You will see the AWS Academy Learner Lab under <code>Dashboard</code>. Click on <code>Accept</code> to accept the invitation to join AWS Academy Learner Lab if you see a message at the very top of the web page.</p>
+<p>Click on AWS Academy Learner Lab at the Dashboard to enter. Then click on <code>Modules</code> to view the available modules. Before start using AWS resources, I highly encourage you to go through the <code>AWS Academy Learner Lab Student Guide</code> to get you familiar with how to use Learner Lab (including how to start a lab, how to track your credit, etc.).</p>
+<p>To start using the AWS resources, click on <code>Launch AWS Academy Learner Lab</code> under <code>Module</code>, which will bring you to the Terms and Conditions. Click on <code>I agree</code> and enter the lab session.</p>
+<figure><img src="../assets/images/a0/aws_academy_guide_launch_lab.jpg" alt="AWS Academy Setting"><figcaption>AWS Academy Setting</figcaption></figure>
+<p>The lab session is a web terminal interface with limited functionality. To start the lab, click on <code>Start Lab</code> at the top of the web terminal interface. The starting process should take a few minutes (if this is the very first time you start the lab, as in the background AWS Academy creates a temporary AWS account for you under the Learner Lab). At the same time, you can see your available AWS cloud credit with a total amount of $50 and how much you have used. When the signal light at the top left corner turns green, it indicates the lab has started.</p>
+<figure><img src="../assets/images/a0/aws_academy_dash1.png" alt="AWS Academy Setting"><figcaption>AWS Academy Setting</figcaption></figure>
+<p>Click on the green signal light to access your AWS Console Home web page.</p>
+<p>A started lab session has a session duration of up to four hours (see the timer <code>04:00</code> in the figure above). When the lab session timer runs to <code>0:00</code>, the session will automatically end, but any data and resources that you created in the AWS account will be retained. If you later launch a new session (for example, the next day), you will find that your work is still in the lab environment. Running EC2 instances will be stopped and then automatically restarted the next time you start a session.</p>
+<div class="assignment-callout"><strong>IMPORTANT:</strong> Monitor your lab budget in the lab interface above. Whenever you have an active lab session, the latest known remaining budget information will display at the top of this screen. This data comes from AWS Budgets which typically updates every 8 to 12 hours. Therefore the remaining budget that you see may not reflect your most recent account activity.  <strong>If you exceed your lab budget your lab account will be disabled and all progress and resources will be lost.</strong> As a best practice, we <strong>highly recommend</strong> frequently pushing your progress to online repositories such as <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a> to avoid losing data. Therefore, it is important for you to manage your spending. When you use GitHub or any other online repository service, make sure to create a <strong>private</strong> repository; <strong>DO NOT</strong> share any of your code to other students and the internet.</div>
+<p>At the AWS Console Home page, click on <code>Services</code> at the top left corner and click on <code>Compute</code> to view all the available computing services that you may use. Click on <code>EC2</code> to start creating new EC2 VM (virtual machine) instances.</p>
+</section>
+<section>
+<h2>Part 1: Create and access EC2 instances</h2>
+<h3>Step 1: Create a name and choose an OS image for your VM</h3>
+<p>Under <code>EC2</code>, click on <code>Launch instances</code> to start creating a new VM. Type a name to label your VM under <code>Name and tags</code>. For example, name your first instance <code>vm0</code>.</p>
+<p>We recommend using Ubuntu Server 22.04 LTS as the OS image and <code>64-bit (x86)</code> as the architecture. You can also specify the number of instances to launch at this time. To start off, choose 1. Later for <a href="/ds5110-spring23/assignments/a1">Assignment 1</a> choose 2 and for <a href="/ds5110-spring23/assignments/a2">Assignment 2</a> choose 5.</p>
+<figure><img src="../assets/images/a0/ec2_create_vm0.png" alt="EC2 instance config step 1"><figcaption>EC2 instance config step 1</figcaption></figure>
+<h3>Step 2: Choose an EC2 instance type</h3>
+<p>Next choose an EC2 instance type.  To test, you can always create one or multiple <code>t2.micro</code> or <code>t1.micro</code>, both of which are free tier eligible, meaning the resource is free of charge. There are, however, a limited range of EC2 instances that you can choose from. We recommend using the <code>t3.large</code> instance type that comes with 2 vCPU cores and 8 GB of memory.</p>
+<figure><img src="../assets/images/a0/ec2_create_vm1.png" alt="EC2 instance config step 2"><figcaption>EC2 instance config step 2</figcaption></figure>
+<h3>Step 3: Choose an SSH key pair</h3>
+<p>What is important when creating new VMs is that you choose a key pair for SSH login. Under <code>Key pair (login)</code>, click on the drop down menu and select <code>vockey (type rsa)</code>.</p>
+<figure><img src="../assets/images/a0/ec2_create_vm2.png" alt="EC2 instance config step 3"><figcaption>EC2 instance config step 3</figcaption></figure>
+<h3>Step 4: Check HTTP/HTTPS options</h3>
+<p>Under <code>Network settings</code>, under <code>Firewall (security groups)</code>, choose <code>Create security group</code>, and enter a security group name of your choice. The default inbound securiy group rules support SSH, which is what you need to log into the created VM. This may be later reconfigured by adding protocol support (TCP, HTTP, HTTPS).</p>
+<figure><img src="../assets/images/a0/ec2_create_vm3.png" alt="EC2 instance config step 4"><figcaption>EC2 instance config step 4</figcaption></figure>
+<h3>Step 5: Configure storage</h3>
+<p>You may also increase the storage capacity of the <code>Root volume</code> under <code>Configure storage</code>. By default you will be allocated a small 8-GB root disk. We recommend increasing it to 50-100 GB so that you have sufficient disk storage capacity for dependency installation and storing datasets. Optionally, you can also add a new EBS volume just in case the root volume runs out of capacity (it runs out of space very fast considering the installation of quite a few large software packages and datasets). <strong>To save cost, you don&#x27;t need an additional 100GB storage volume.</strong></p>
+<figure><img src="../assets/images/a0/ec2_create_vm4.png" alt="EC2 instance config step 5"><figcaption>EC2 instance config step 5</figcaption></figure>
+<h3>Step 6: Configure the subnet availability zone</h3>
+<p>We recommend launching all your EC2 instances in the same availability zone. Any US east zones should be fine. This can be configured in Network settings. Once choosing one, always stick with it when creating new EC2 instances. This is to guarantee the best network performance among your EC2 instances. For example, you may choose to use a subnet within an availability zone of <code>us-east-1a</code> and stick with it.</p>
+<figure><img src="../assets/images/a0/ec2_create_vm5.png" alt="EC2 instance config step 6"><figcaption>EC2 instance config step 6</figcaption></figure>
+<h3>Step 7: Launch the EC2 instance</h3>
+<p>After finalizing the EC2 VM configuration, click on the <code>Launch instance</code> button on the right side to launch the configured VM. It may take a few minutes to start the VM.</p>
+<h3>Step 8: Download the SSH private key</h3>
+<p>Now go back to the Learner Lab web page. This is where you can download the SSH key. Click on the <code>AWS Details</code> tab, you will see the information you need to login to your computing resources. Under <code>SSH key</code>, click on <code>Download PEM</code> to download the SSH key to your local computer. It comes with a default name of <code>labsuser.pem</code>.</p>
+<figure><img src="../assets/images/a0/aws_academy_ssh_key.png" alt="AWS Academy Setting"><figcaption>AWS Academy Setting</figcaption></figure>
+<h3>Step 9: Login to the EC2 instance through SSH</h3>
+<p>Open a terminal (if you use a MacBook, open the <code>Terminal</code> software; if you use a Windows, we recommend <a href="#01242023">installing WSL</a>), locate your private key file that you have just downloaded locally, change its name to <code>vockey.pem</code> and update its permission, if necessary, to ensure your key is not publicly viewable:</p>
+<pre><code class="language-bash">% mv labsuser.pem vockey.pem
+% chmod 400 vockey.pem</code></pre>
+<p>Then, connect to your instance using the following command:</p>
+<pre><code class="language-bash">% ssh -i &quot;vockey.pem&quot; ubuntu@[public_IPv4_DNS_address_of_your_EC2_instance]</code></pre>
+<p>To view the connection instruction, click on the instance ID from your AWS Console, then click on <code>Connect</code> at the top right corner of the page to view the public DNS address of your EC2 instance. An example name looks something like this: <code>ubuntu@ec2-11-222-3-190.compute-1.amazonaws.com</code>, where <code>ubuntu</code> is your default username on any EC2 instances that you created.</p>
+<figure><img src="../assets/images/a0/ec2_create_vm6.png" alt="AWS Academy Setting"><figcaption>AWS Academy Setting</figcaption></figure>
+<p>Great! So far you should be able to SSH login to a remote Linux VM computer that you have just created on AWS running on somewhere in some North Virginia datacenter!</p>
+</section>
+<section>
+<h2>Part 2: Installing OpenCode AI coding CLI</h2>
+<p>This part will walk you through the steps of installing <a href="https://opencode.ai/" target="_blank" rel="noreferrer">OpenCode</a>, an open-source AI coding command-line interface (CLI). A CLI is also called a <a href="https://en.wikipedia.org/wiki/Text-based_user_interface" target="_blank" rel="noreferrer">TUI (text-based user interface)</a>. It is different from GUIs (graphical user interfaces), which are designed mainly for humans to interact with software through visual elements such as windows, buttons, menus, and icons. In contrast, a TUI exposes interaction through plain text commands and text outputs. This makes coding CLIs especially friendly to LLMs: the model can directly read the current context, issue commands, inspect the output, and decide the next step. In other words, while GUIs are optimized for human eyes and mouse clicks, TUIs are naturally optimized for language-based interaction, which is exactly what LLMs are good at.</p>
+<p>This tutorial is provided so that you don&#x27;t need to repeat the same logistics for Assignment 1 and 2, as you will need to use OpenCode in an EC2 to complete the next two assignments.</p>
+<h3>Step 0: Install OpenCode</h3>
+<p>First, install <code>opencode</code>.</p>
+<pre><code class="language-sh">$ sudo apt update
+$ curl -fsSL https://opencode.ai/install | bash
+$ source /home/ubuntu/.bashrc
+$ which opencode</code></pre>
+<figure><img src="../assets/images/a0/ec2_install_opencode.png" alt="Installing OpenCode"><figcaption>Installing OpenCode</figcaption></figure>
+<p>The fourth command above, <code>which opencode</code>, should output <code>/home/ubuntu/.opencode/bin/opencode</code> if it&#x27;s successfully installed.</p>
+<h3>Step 1: Run OpenCode</h3>
+<p>To run OpenCode in your EC2 VM:</p>
+<pre><code class="language-sh">$ opencode</code></pre>
+<p>It will bring you to a TUI like this:</p>
+<figure><img src="../assets/images/a0/ec2_1st_time_run_opencode.png" alt="Launching OpenCode"><figcaption>Launching OpenCode</figcaption></figure>
+<p>Use <code>/</code> to open the command menu in your OpenCode session. To switch models, type <code>/models</code> and press <em>Enter</em>. By default, OpenCode provides four free models, though this may change over time. For this assignment, try MiniMax M2.5 or Qwen 3.6 Plus if both are available under the <code>free</code> category.  If one of them does not work, switch to a different free model and try different a different prompt.</p>
+<figure><img src="../assets/images/a0/ec2_opencode_switch_models.png" alt="Switching Models"><figcaption>Switching Models</figcaption></figure>
+<p>For other non-free models, you need either a paid API key from a certain API provider such as <a href="https://openrouter.ai/" target="_blank" rel="noreferrer">OpenRouter</a> an activechatbot subscription, ChatGPT Plus/Pro.</p>
+</section>
+<section>
+<h2>Part 3: OpenCode Meta-programming</h2>
+<p>If you have successfully cleared all previous parts and steps, congratulations! Now you have a cloud VM with a basic AI coding development environment.</p>
+<p>In this part, you will use OpenCode to practice a small but important skill: <strong><a href="https://en.wikipedia.org/wiki/Metaprogramming" target="_blank" rel="noreferrer">metaprogramming</a></strong>.</p>
+<p>Traditionally, metaprogramming means writing programs that generate, inspect, or modify other programs. For example, a script that creates another script is doing metaprogramming. A code generator that writes boilerplate code for you is also doing metaprogramming.</p>
+<p>In the AI coding era (initially called <a href="https://x.com/karpathy/status/1886192184808149383?lang=en" target="_blank" rel="noreferrer">vibe coding</a>), metaprogramming becomes even more natural. Instead of writing every line of code manually, you describe the program you want in natural language (which in our case, English, ask an AI coding agent to generate or modify it, then inspect, test, and improve the result.  The important skill is not blindly accepting generated code. The important skill is learning how to give a clear specification, understand the generated code, run it, debug it, and verify that it does exactly what you asked for, with the help of a coding agent.</p>
+<p>In this task, you will use OpenCode to help you create a small program. The program will download a dataset, extract it, search through CSV files, and count how many lines contain the text &quot;<code>python</code>&quot;.</p>
+<p>You should use one of the free models provided by OpenCode for this task. We will provide you with paid API access through OpenRouter for the next two assignments.</p>
+<p>The program that you will build with OpenCode is very simple: it does something as follows:</p>
+<p>Create a Python program named <code>ds5110_s26_a0.py</code>.</p>
+<p>The Python script should download and analyze a small StackOverflow dataset. It should:</p>
+<ol>
+<li>Download a zip file from https://drive.google.com/uc?id=1vlczaocHyghEW5Q-6WprqB2nnna_wrLE</li>
+<li>Extract the zip file downloaded into a directory named <code>stackoverflow_data</code>.</li>
+<li>Load all CSV files under <code>stackoverflow_data</code>.</li>
+<li>Count how many rows contain each of the following keywords, case-insensitively:</li>
+</ol>
+<pre><code class="language-text">python
+java
+javascript
+sql
+rust</code></pre>
+<ol start="5">
+<li>Print a report in the following format:</li>
+</ol>
+<pre><code class="language-text">Number of CSV files: &lt;number&gt;
+Total number of rows: &lt;number&gt;
+Rows containing python: &lt;number&gt;
+Rows containing java: &lt;number&gt;
+Rows containing javascript: &lt;number&gt;
+Rows containing sql: &lt;number&gt;
+Rows containing rust: &lt;number&gt;
+Most common keyword: &lt;keyword&gt;</code></pre>
+<ol start="6">
+<li>The script should be safe to run multiple times. If the zip file or extracted directory already exists, it should not crash.</li>
+</ol>
+<ol start="7">
+<li>The script should be organized using functions, with a <code>main()</code> function as the entry point.</li>
+</ol>
+<ol start="8">
+<li>The script should print only the report above. Do not print debugging messages, progress bars, or extra text.</li>
+</ol>
+<p>You should use OpenCode to help you create this program. However, you are responsible for reading, testing, and understanding the final code.</p>
+<p>After generating the program, run:</p>
+<pre><code class="language-sh">$ python3 ds5110_s26_a0.py</code></pre>
+<p>Export the OpenCode session transcript markdown file named <code>opencode_session_transcript.md</code>. To do so, type <code>/export</code> in your OpenCode session and change the transcript file name when prompted. Include thinking, tool details, and assistant metadata in the exported transcript.</p>
+<p>Then create a short file named <code>notes.txt</code> answering:</p>
+<pre><code class="language-text">1. What was one issue, bug, or improvement you found in the generated code? (Leave blank if the coding agent passes it in one shot.)
+2. How did you verify that the final output was correct?</code></pre>
+<div class="assignment-callout"><strong>HINTS:</strong> For output verification, one useful strategy is to switch to a different free model and ask it to generate a solution for the same task using the same prompt. You can then compare the two programs and their outputs. Another strategy is to implement the logic yourself and compare your result with the AI-generated result. However, writing the full solution manually is often not scalable. For more complex tasks, it may take a significant amount of time to implement and verify everything by yourself, which can outweigh the productivity benefits of AI coding. Therefore, <strong>be mindful and creative about verification</strong>.</div>
+</section>
+<section>
+<h2>Deliverables</h2>
+<p>This is a <strong>group assignment</strong>. Only one student needs to submit on Canvas. You should submit a <code>tar.gz</code> file to Canvas, which follows the naming convention of <code>LastName_FirstName_ComputingID_A0.tar.gz</code>. The submitted file should contain the following: <code>ds5110_s26_a0.py</code>, <code>opencode_session_transcript.txt</code> and <code>notes.txt</code>.</p>
+<div class="assignment-callout"><strong>HINTS:</strong> You can use the following command to create a <code>tar.gz</code> file: <code>tar -czvf [submission_file_name] ds5110_s26_a0.py opencode_session_transcript.txt notes.txt</code>.</div>
+<p>You can resubmit your assignment an unlimited number of times before the deadline. Note the late submission policy: assignments will be accepted up until 3 days past the deadline at a penalty of 10% per late day; after 3 days, no late assignments will be accepted, no exceptions.</p>
+</section>
+    </article>
+  </main>
+</body>
+</html>
