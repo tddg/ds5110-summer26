@@ -352,7 +352,9 @@ presentation.</p>
 
         var topic = el("td", "", item.topic);
         var materials = el("td", "materials-cell");
-        if (item.materials.length === 0) {
+        if (item.hideMaterials) {
+          materials.textContent = "";
+        } else if (item.materials.length === 0) {
           materials.textContent = "TBD";
         } else {
           item.materials.forEach(function (material) {
