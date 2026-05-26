@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec5",
+        html: `Lecture 5's slides are uploaded.`,
+        updated: "May 25, 2026"
+      },
+      {
         title: "Lec4",
         html: `Lecture 4's slides are uploaded.`,
         updated: "May 20, 2026"
@@ -223,7 +228,10 @@ presentation.</p>
 		], notes: "" },
       { week: 1, date: "Fri May 22", topic: "Studio / Work Session", materials: [], notes: "Assignment 0 due<br>Assignment 1 out" },
       { week: 2, date: "Mon May 25", topic: "Memorial Day", materials: [], hideMaterials: true, notes: "No class" },
-      { week: 2, date: "Tue May 26", topic: "Project discussion", materials: [], notes: "" },
+      { week: 2, date: "Tue May 26", topic: "Project discussion", 
+		materials: [
+			{ text: "Lec5: Project", href: "assets/docs/lec5-projects.pdf" },
+		], notes: "" },
       { week: 2, date: "Wed May 27", topic: "Cloud and serverless computing", materials: [], notes: "" },
       { week: 2, date: "Thu May 28", topic: "Cloud storage (AWS S3)", materials: [], notes: "" },
       { week: 2, date: "Fri May 29", topic: "Studio / Work Session", materials: [], notes: "Assignment 1 due<br>Assignment 2 out" },
