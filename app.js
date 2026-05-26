@@ -253,8 +253,8 @@ presentation.</p>
     ],
     staff: [
       { name: "Yue Cheng", role: "Instructor", email: "mrz7dp@virginia.edu", officeHours: "Thursday 3pm to 4pm (Zoom)", website: "https://tddg.github.io" },
-      { name: "Yuyang Cheng", role: "GTA", email: "jrm9ga@virginia.edu", officeHours: "TBD" },
-      { name: "Parvati Viswanathan", role: "GTA", email: "bsg5ec@virginia.edu", officeHours: "TBD" }
+      { name: "Yuyang Cheng", role: "GTA", email: "jrm9ga@virginia.edu", officeHours: "Tuesdays 2pm to 5pm (Zoom)" },
+      { name: "Parvati Viswanathan", role: "GTA", email: "bsg5ec@virginia.edu", officeHours: "Wednesdays 2pm to 5pm (Zoom)" }
     ]
   };
 
