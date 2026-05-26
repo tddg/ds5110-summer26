@@ -6,7 +6,7 @@
     announcements: [
       {
         title: "Lec5",
-        html: `Lecture 5's slides are uploaded.`,
+        html: `Lecture 5's slides are uploaded.<br> Fill out <a href="https://forms.gle/5CefQhUuTzbLepfE7" target="_blank">project selection form</a> by 05/27.`,
         updated: "May 25, 2026"
       },
       {
@@ -231,6 +231,7 @@ presentation.</p>
       { week: 2, date: "Tue May 26", topic: "Project discussion", 
 		materials: [
 			{ text: "Lec5: Project", href: "assets/docs/lec5-projects.pdf" },
+			{ text: "Project selection form", href: "https://forms.gle/5CefQhUuTzbLepfE7" },
 		], notes: "" },
       { week: 2, date: "Wed May 27", topic: "Cloud and serverless computing", materials: [], notes: "" },
       { week: 2, date: "Thu May 28", topic: "Cloud storage (AWS S3)", materials: [], notes: "" },
