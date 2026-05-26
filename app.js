@@ -226,7 +226,7 @@ presentation.</p>
 			{ text: "MapReduce paper", href: "https://www.usenix.org/conference/osdi-04/mapreduce-simplified-data-processing-large-clusters" },
 			{ text: "Spark RDD paper", href: "https://www.usenix.org/conference/nsdi12/technical-sessions/presentation/zaharia" },
 		], notes: "" },
-      { week: 1, date: "Fri May 22", topic: "Studio / Work Session", materials: [], notes: "Assignment 0 due<br>Assignment 1 out" },
+      { week: 1, date: "Fri May 22", topic: "Studio / Work Session", materials: [], hideMaterials: true, notes: "Assignment 0 due<br>Assignment 1 out" },
       { week: 2, date: "Mon May 25", topic: "Memorial Day", materials: [], hideMaterials: true, notes: "No class" },
       { week: 2, date: "Tue May 26", topic: "Project discussion", 
 		materials: [
