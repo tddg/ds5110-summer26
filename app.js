@@ -245,11 +245,11 @@ presentation.</p>
 		], notes: "" },
       { week: 2, date: "Wed May 27", topic: "Cloud and serverless computing", 
 		materials: [
-			{ text: "Cloud computing and serverless computing", href: "assets/docs/lec6-cloud-computing.pdf" },
+			{ text: "Lec6: Cloud computing and serverless computing", href: "assets/docs/lec6-cloud-computing.pdf" },
 		], notes: "" },
       { week: 2, date: "Thu May 28", topic: "Cloud storage (AWS S3)", 
 		materials: [
-			{ text: "AWS S3", href: "assets/docs/lec7-aws-s3.pdf" },
+			{ text: "Lec7: AWS S3", href: "assets/docs/lec7-aws-s3.pdf" },
 
 		], notes: "" },
       { week: 2, date: "Fri May 29", topic: "Studio / Work Session", materials: [], notes: "Assignment 1 due<br>Assignment 2 out" },
