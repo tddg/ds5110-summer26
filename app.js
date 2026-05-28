@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec7",
+        html: `Lecture 7's slides are uploaded.<br> Fill out <a href="https://forms.gle/5CefQhUuTzbLepfE7" target="_blank">project selection form</a> by 05/27.`,
+        updated: "May 27, 2026"
+      },
+      {
         title: "Lec6",
         html: `Lecture 6's slides are uploaded.<br> Fill out <a href="https://forms.gle/5CefQhUuTzbLepfE7" target="_blank">project selection form</a> by 05/27.`,
         updated: "May 26, 2026"
@@ -241,9 +246,12 @@ presentation.</p>
       { week: 2, date: "Wed May 27", topic: "Cloud and serverless computing", 
 		materials: [
 			{ text: "Cloud computing and serverless computing", href: "assets/docs/lec6-cloud-computing.pdf" },
-			{ text: "Raid Boss", href: "https://i4jln4eazrrtcjtnvib4tqljj40wfugo.lambda-url.us-east-1.on.aws/" },
 		], notes: "" },
-      { week: 2, date: "Thu May 28", topic: "Cloud storage (AWS S3)", materials: [], notes: "" },
+      { week: 2, date: "Thu May 28", topic: "Cloud storage (AWS S3)", 
+		materials: [
+			{ text: "AWS S3", href: "assets/docs/lec7-aws-s3.pdf" },
+
+		], notes: "" },
       { week: 2, date: "Fri May 29", topic: "Studio / Work Session", materials: [], notes: "Assignment 1 due<br>Assignment 2 out" },
       { week: 3, date: "Mon Jun 1", topic: "AI systems foundation", materials: [], notes: "" },
       { week: 3, date: "Tue Jun 2", topic: "Model optimization", materials: [], notes: "" },
