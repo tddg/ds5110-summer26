@@ -14,7 +14,3 @@ __pycache__/
 .tmp/
 tmp/
 
-# Assignment content is intentionally excluded from GitHub Pages for now.
-# Remove these rules, or use `git add -f`, when assignments are ready to publish.
-assignments/a2.html
-assignments/src/a2.md

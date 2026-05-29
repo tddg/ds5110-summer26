@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "A2 is out",
+        html: `A2 is out and due by EOD next Friday`,
+        updated: "May 29, 2026"
+      },
+      {
         title: "Lec7",
         html: `Lecture 7's slides are uploaded.<br> Fill out <a href="https://forms.gle/5CefQhUuTzbLepfE7" target="_blank">project selection form</a> by 05/27.`,
         updated: "May 27, 2026"
@@ -267,7 +272,7 @@ presentation.</p>
     assignments: [
       { title: "Assignment 0", subtitle: "AWS Academy, EC2, Linux shell, and AI coding CLI", due: "Fri May 22, 11:59 PM ET", dueDate: "2026-05-22T23:59:00-04:00", href: "assignments/a0.html" },
       { title: "Assignment 1", subtitle: "Analytics with Spark and DuckDB", due: "Fri May 29, 11:59 PM ET", dueDate: "2026-05-29T23:59:00-04:00", href: "assignments/a1.html" },
-      { title: "Assignment 2", subtitle: "Burst-parallel ML with AWS Lambda", due: "Fri Jun 5, 11:59 PM ET", dueDate: "2026-06-05T23:59:00-04:00", href: "#" }
+      { title: "Assignment 2", subtitle: "Burst-parallel ML with AWS Lambda", due: "Fri Jun 5, 11:59 PM ET", dueDate: "2026-06-05T23:59:00-04:00", href: "assignments/a2.html" }
     ],
     staff: [
       { name: "Yue Cheng", role: "Instructor", email: "mrz7dp@virginia.edu", officeHours: "Thursday 3pm to 4pm (Zoom)", website: "https://tddg.github.io" },
