@@ -35,7 +35,7 @@
       </header>
 
 <section>
-<h2>FAQs</h2>
+<h2 id="faqs">FAQs</h2>
 <ul>
 <li><strong>PLEASE DO NOT PROCRASTINATE!!</strong> If you wait till the last minute to work on your assignment and ask for help, no one will be able to help you. <strong>A2 is more challenging than A0/A1</strong>, even with the help of AI coding tools (OpenRouter models): some steps, especially deploying AWS resources such as S3 buckets and Lambda functions, may take longer (and more tokens) than you expect. So, start working on it <strong>EARLY</strong>.</li>
 </ul>
@@ -50,14 +50,14 @@
 <div class="assignment-callout"><strong>AWS Academy credentials expire when your Learner Lab session changes.</strong> When you start a new Learner Lab session, the old AWS CLI credentials copied to your EC2 instance may stop working. If deployment commands fail with credential errors, go back to <strong>AWS Details</strong> on the Learner Lab dashboard, click the <strong>AWS CLI</strong> <strong>Show</strong> button, copy the latest credentials, and paste them into your EC2 instance&#x27;s <code>~/.aws/credentials</code> again.</div>
 </section>
 <section>
-<h2>Overview</h2>
+<h2 id="overview">Overview</h2>
 <p>This assignment is designed to support your in-class understanding of serverless computing, burst-parallel execution, object storage, and machine learning (ML) inference as a data systems workload. You will use an AI coding agent to build a small serverless sentiment-analysis framework on <a href="https://aws.amazon.com/pm/lambda" target="_blank" rel="noreferrer">AWS Lambda</a> and <a href="https://aws.amazon.com/pm/serv-s3" target="_blank" rel="noreferrer">S3</a>.</p>
 <p>Similar to the in-class demo of the Lambda-based Raid Boss game design, your system should expose a static website hosted from S3. A user should be able to open this website in a browser, upload an IMDb review dataset, start sentiment analysis, and watch results appear as the Lambda worker fleet processes the uploaded data.</p>
 <p>The ML task is binary sentiment classification on IMDb-style movie reviews. You should use a small subset of the Hugging Face IMDb dataset (download the CSV file <a href="https://tddg.github.io/ds5110-summer26/assets/datasets/train_subset_1000.csv" target="_blank" rel="noreferrer">here</a> -- note it only contains 1,000 rows), and a <a href="https://huggingface.co/dfurman/distilbert-base-uncased-imdb" target="_blank" rel="noreferrer">DistilBERT model</a> fine-tuned for IMDb sentiment classification: <code>dfurman/distilbert-base-uncased-imdb</code>. The full IMDb dataset can be downloaded from <a href="https://huggingface.co/datasets/stanfordnlp/imdb" target="_blank" rel="noreferrer"><code>stanfordnlp/imdb</code></a>. If you do test this full dataset, there is a risk your account may hit the service limit of Academy Learner Lab. If so, your account may be deactivated.</p>
 <p>Your system should automatically partition uploaded data into shards and invoke multiple Lambda workers in parallel. Each worker should process one shard, write its output to S3, and make its progress visible to the website.  You will use the system to study how shard size and Lambda concurrency affect end-to-end processing time.</p>
 </section>
 <section>
-<h2>Part 0: Environment setup</h2>
+<h2 id="part-0-environment-setup">Part 0: Environment setup</h2>
 <p>You will complete this assignment in your existing AWS Academy Learner Lab account.</p>
 <p>You should use your AI coding CLI to install and configure the software tools needed for deployment. For this assignment, I recommend the following models: <code>Qwen 3.6 Plus</code> for implementation, and <code>GLM 5</code> for deploying AWS S3 and Lambda resources. But you can use one model throughout. Baed on my experience, Qwen may get stuck using AWS tools for deployment.</p>
 <p>A reasonable implementation will use:</p>
@@ -73,7 +73,7 @@
 <pre><code class="language-text">This project runs in AWS Academy Learner Lab. Use the existing IAM role named
 LabRole for all Lambda functions. Do not create new IAM roles. Do not create a
 custom Lambda execution role.</code></pre>
-<h3>AWS credentials on your EC2 instance</h3>
+<h3 id="aws-credentials-on-your-ec2-instance">AWS credentials on your EC2 instance</h3>
 <p>Since you are using an EC2 instance inside AWS Academy Learner Lab as your development machine, configure the AWS CLI credentials on that instance before running deployment commands.</p>
 <p>To find your temporary AWS credentials in AWS Academy Learner Lab:</p>
 <ol>
@@ -93,7 +93,7 @@ nano ~/.aws/credentials</code></pre>
 <p><strong>These credentials are temporary.</strong> If your Learner Lab session expires or your AWS CLI commands start failing with credential errors, return to AWS Academy, copy the latest AWS CLI credentials, and update <code>~/.aws/credentials</code> again.</p>
 </section>
 <section>
-<h2>Part 1: System architecture</h2>
+<h2 id="part-1-system-architecture">Part 1: System architecture</h2>
 <p>In this assignment, you will use AI to build a static website plus a two-Lambda backend.  Your design should include the following components:</p>
 <ul>
 <li><strong>Frontend static website.</strong> The webpage source files should be organized locally under a <code>frontend/</code> directory. At minimum, your source tree should include:</li>
@@ -127,7 +127,7 @@ s3://your-frontend-bucket/config.json</code></pre>
 <p>Your AI coding CLI should help you implement this architecture. You are responsible for inspecting, testing, and understanding the generated code.</p>
 </section>
 <section>
-<h2>Part 2: Input data and sharding</h2>
+<h2 id="part-2-input-data-and-sharding">Part 2: Input data and sharding</h2>
 <p>Your system should support IMDb-style review data in CSV or Parquet format. The input data should contain the following column:</p>
 <pre><code class="language-text">text</code></pre>
 <p>You can download a small test dataset with ground-truth labels <a href="https://tddg.github.io/ds5110-summer26/assets/datasets/test_subset_1000.csv" target="_blank" rel="noreferrer">here</a>. The use of the test dataset is optional, only for validation purposes. If ground-truth labels are available, the input data may also include the following optional column:</p>
@@ -154,7 +154,7 @@ s3://your-frontend-bucket/config.json</code></pre>
 <p>Small shards increase parallelism but create more Lambda invocations. Large shards reduce invocation overhead but make each Lambda run longer. Your report should discuss this tradeoff.</p>
 </section>
 <section>
-<h2>Part 3: Lambda-based sentiment analysis</h2>
+<h2 id="part-3-lambda-based-sentiment-analysis">Part 3: Lambda-based sentiment analysis</h2>
 <p>In this part, implement the worker Lambda.</p>
 <p>The worker Lambda should:</p>
 <ol>
@@ -196,7 +196,7 @@ Tokenizer max_length: 256</code></pre>
 <p>You may tune the worker batch size and report what you observed in <code>notes.txt</code>.  Do not assume that more memory is always better. In Lambda, increasing memory also increases the CPU resources assigned to the function, so memory size can be treated as a performance-tuning parameter in optional experiments.</p>
 </section>
 <section>
-<h2>Part 4: Website and live progress log</h2>
+<h2 id="part-4-website-and-live-progress-log">Part 4: Website and live progress log</h2>
 <p>In this part, implement the browser interface.</p>
 <p>Your static website should include:</p>
 <ul>
@@ -215,7 +215,7 @@ Tokenizer max_length: 256</code></pre>
 <p>The website does not need authentication. However, do not upload sensitive data. This assignment is only intended for public or course-provided datasets.</p>
 </section>
 <section>
-<h2>Part 5: Experiments</h2>
+<h2 id="part-5-experiments">Part 5: Experiments</h2>
 <p>Use your system to process IMDb review data and measure performance.</p>
 <p>Keep the experiments small enough for AWS Academy Learner Lab. Use a worker concurrency limit of <strong>5</strong> for normal testing. Do not use a dataset or shard configuration that may launch more than 20 concurrent worker Lambdas. Staying within this limit is part of the assignment requirement.</p>
 <p>You should run at least three experiments:</p>
@@ -228,7 +228,7 @@ Tokenizer max_length: 256</code></pre>
 <p>For each experiment, save the timing results and a short explanation of what you learned. You should use these findings in your final notes.</p>
 </section>
 <section>
-<h2>Tasks</h2>
+<h2 id="tasks">Tasks</h2>
 <p>This assignment features five tasks as follows:</p>
 <ul>
 <li><strong>Task 1.</strong> Implement the static website. The website should upload input data to S3, start sentiment analysis, poll for status, and display a live log of processed review entries. Configure frontend requests to the coordinator Lambda with a 20-second client-side timeout to tolerate cold starts. The dashboard should also display coordinator Lambda timing and worker Lambda execution time for completed shards.</li>
@@ -245,7 +245,7 @@ Tokenizer max_length: 256</code></pre>
 <div class="assignment-callout"><strong>NOTE:</strong> This is an open-ended development assignment. With the help of AI coding tools, different groups may make different design choices, and there is no single required implementation that is considered the only correct solution. Your design is acceptable as long as the final prototype works end to end: the user can upload a CSV file through the website, the coordinator Lambda can shard the input data and invoke worker Lambdas, each worker Lambda can process one shard and save its output to S3, and the dashboard shows the requested information, including progress, result logs with predictions, and timing information.</div>
 </section>
 <section>
-<h2>Hint: How to use your AI coding CLI effectively</h2>
+<h2 id="hint-how-to-use-your-ai-coding-cli-effectively">Hint: How to use your AI coding CLI effectively</h2>
 <p>You may give the AI coding CLI the entire assignment Markdown file as the initial prompt. However, do not simply ask it to “build the whole system” immediately. This assignment has many moving parts, including S3 static website hosting, presigned uploads, Lambda Function URLs, Lambda container images, S3-based progress tracking, and frontend dashboard updates. If the AI makes a wrong assumption early, it may generate a system that is difficult to debug later.</p>
 <p>A good workflow is to first ask the AI to read the full assignment spec and <a href="https://skillsmp.com/skills/pruett-dotfiles-claude-code-claude-skills-interrogate-skill-md" target="_blank" rel="noreferrer">interrogate</a> the requirements before writing code. For example, you can ask:</p>
 <div class="assignment-callout">Read the full assignment specification carefully. Before writing code, interrogate the spec: list the required components, identify unclear or risky parts, state your assumptions, and propose a step-by-step implementation plan. Do not generate code yet.</div>
@@ -263,7 +263,7 @@ Tokenizer max_length: 256</code></pre>
 <p>You are responsible for inspecting, testing, and understanding the generated code. AI-generated code is allowed, but you should not treat it as automatically correct. Use the transcript to document how you prompted the AI, what design choices it made, what errors occurred, and how you fixed them.</p>
 </section>
 <section>
-<h2>Deliverables</h2>
+<h2 id="deliverables">Deliverables</h2>
 <p>You should submit a <code>tar.gz</code> file to Canvas, which follows the naming convention of <code>LastName_FirstName_ComputingID_A2.tar.gz</code>. The submitted file should include:</p>
 <ul>
 <li>the source-code files containing the code of each task. Each file should be meaningfully named so that the teaching staff can know which file is for which task;</li>

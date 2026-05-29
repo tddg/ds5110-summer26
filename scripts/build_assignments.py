@@ -68,6 +68,16 @@ def inline_md(text: str) -> str:
     return text
 
 
+def slugify_heading(text: str) -> str:
+    text = re.sub(r"`([^`]+)`", r"\1", text)
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", text)
+    text = re.sub(r"<[^>]+>", "", text)
+    text = re.sub(r"[*_~]", "", text)
+    text = text.lower()
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    return text.strip("-")
+
+
 def extract_title_from_h1(meta: dict[str, str], markdown: str) -> tuple[dict[str, str], str]:
     if meta.get("title"):
         return meta, markdown
@@ -168,12 +178,15 @@ def markdown_to_html(markdown: str) -> str:
             flush_paragraph()
             close_list()
             level = len(heading.group(1))
-            text = inline_md(heading.group(2))
+            raw_heading = heading.group(2).strip()
+            text = inline_md(raw_heading)
+            heading_id = slugify_heading(raw_heading)
             if level in (1, 2):
                 close_section()
                 out.append("<section>")
                 in_section = True
-            out.append(f"<h{level}>{text}</h{level}>")
+            id_attr = f' id="{html.escape(heading_id, quote=True)}"' if heading_id else ""
+            out.append(f"<h{level}{id_attr}>{text}</h{level}>")
             continue
 
         image = re.match(r"^!\[([^\]]*)\]\(([^)]+)\)(?:\{width=(\d+)\})?$", line.strip())

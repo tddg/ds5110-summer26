@@ -35,30 +35,30 @@
       </header>
 
 <section>
-<h2>FAQs</h2>
+<h2 id="faqs">FAQs</h2>
 <ul>
 <li><strong>PLEASE DO NOT PROCRASTINATE!!</strong> If you wait till the last minute to work on your assignment and ask for help, no one will be able to help you. These assignments are not hard, but some steps might take longer than you expect, esp. when you are new to it. So, start working on it <strong>EARLY</strong>.</li>
 </ul>
 </section>
 <section>
-<h2>Overview</h2>
+<h2 id="overview">Overview</h2>
 <p>This assignment is designed to support your in-class understanding of how big data analytics stacks work and get some hands-on experience in using them. You will need to deploy Apache Spark and DuckDB and implement a small graph analytics application (PageRank) on them using OpenCode. You will produce a short report detailing your observations and takeaways.</p>
 </section>
 <section>
-<h2>Part 0: Environment setup</h2>
+<h2 id="part-0-environment-setup">Part 0: Environment setup</h2>
 <p>You will complete this assignment in AWS Academy.</p>
 <p>In this assignment, you should create one EC2 VM instance of type <code>t3.large</code>.  Spark uses Java. So, as the first step, you should run the following commands on every EC2 instance to install Java. Ubuntu 24.04 LTS comes with <code>python3</code> (<code>Python 3.12.3</code>) installed. So you don&#x27;t need to manually install python yourself.</p>
 <pre><code class="language-bash">$ sudo apt update
 $ sudo apt install -y openjdk-8-jdk</code></pre>
 </section>
 <section>
-<h2>Part 1: Software deployment</h2>
-<h3>Apache Spark</h3>
+<h2 id="part-1-software-deployment">Part 1: Software deployment</h2>
+<h3 id="apache-spark">Apache Spark</h3>
 <p><a href="https://spark.apache.org/docs/latest/index.html" target="_blank" rel="noreferrer">Apache Spark</a> is a powerful open-source analytics engine for big data processing. Spark is built on its core idea of <a href="https://www.usenix.org/system/files/conference/nsdi12/nsdi12-final138.pdf" target="_blank" rel="noreferrer">Resilient Distributed Datasets (RDDs)</a>. Spark standalone consists of a set of daemons: a <code>Master</code> daemon, and a set of <code>Worker</code> daemons. Spark applications are coordinated by a <code>SparkContext</code> object, which will connect to the <code>Master</code>, which is responsible for allocating resources across applications. Once connected, Spark acquires <code>Executors</code> on every <code>Worker</code> node in the cluster, which are processes that run computations and store data for your applications. Finally, the application&#x27;s tasks are handed to <code>Executors</code> for execution. We will use Spark in standalone mode, which means that it does not need to rely on resource management systems like YARN.</p>
 <p>Instructions on deploying a Spark cluster can be found in Spark&#x27;s <a href="https://spark.apache.org/docs/latest/spark-standalone.html" target="_blank" rel="noreferrer">official document</a>. For this assignment, you don&#x27;t need to build a standalone Spark. Instead, use AI to install <strong>PySpark</strong> for you.</p>
 </section>
 <section>
-<h2>Part 2: PageRank</h2>
+<h2 id="part-2-pagerank">Part 2: PageRank</h2>
 <p>In this part, you will implement the <a href="http://infolab.stanford.edu/~backrub/google.html" target="_blank" rel="noreferrer">PageRank algorithm</a> (§2.1) (or <a href="https://en.wikipedia.org/wiki/PageRank#Simplified_algorithm" target="_blank" rel="noreferrer">the Wikipedia version</a>), which is an algorithm used by search engines like Google to evaluate the quality of links to a webpage. The algorithm can be summarized as follows:</p>
 <ol>
 <li>Set initial rank of each page to be 1.</li>
@@ -107,7 +107,7 @@ $ gunzip web-BerkStan.txt.gz</code></pre>
 </ul>
 </section>
 <section>
-<h2>Deliverables</h2>
+<h2 id="deliverables">Deliverables</h2>
 <p>You should submit a <code>tar.gz</code> file to Canvas, which follows the naming convention of <code>LastName_FirstName_ComputingID_A1.tar.gz</code>. The submitted file should include:</p>
 <ul>
 <li>the source-code files containing the code of each task (each file should be meaningfully named so that the teaching staff can know which file is for which task);</li>
