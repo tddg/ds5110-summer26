@@ -38,8 +38,8 @@ if find assignments -maxdepth 1 -name "*.html" -type f | grep -q .; then
 fi
 
 if [[ -d assets ]]; then
-  mkdir -p "$TMP_DIR/assets"
-  find assets -mindepth 1 ! -name ".DS_Store" -exec cp -R {} "$TMP_DIR/assets/" \;
+  cp -R assets "$TMP_DIR/"
+  find "$TMP_DIR/assets" -name ".DS_Store" -type f -delete
 fi
 
 if [[ -d "$TMP_DIR/assets/docs" ]]; then

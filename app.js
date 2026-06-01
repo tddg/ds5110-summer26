@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec8",
+        html: `Lecture 8's slides are uploaded.`,
+        updated: "May 31, 2026"
+      },
+      {
         title: "A2 is out",
         html: `A2 is out and due by EOD next Friday`,
         updated: "May 29, 2026"
@@ -257,11 +262,14 @@ presentation.</p>
 			{ text: "Lec7: AWS S3", href: "assets/docs/lec7-aws-s3.pdf" },
 
 		], notes: "" },
-      { week: 2, date: "Fri May 29", topic: "Studio / Work Session", materials: [], notes: "Assignment 1 due<br>Assignment 2 out" },
-      { week: 3, date: "Mon Jun 1", topic: "AI systems foundation", materials: [], notes: "" },
-      { week: 3, date: "Tue Jun 2", topic: "Model optimization", materials: [], notes: "" },
+      { week: 2, date: "Fri May 29", topic: "Studio / Work Session", materials: [], hideMaterials: true, notes: "Assignment 1 due<br>Assignment 2 out" },
+      { week: 3, date: "Mon Jun 1", topic: "AI computing infrastructure", 
+		materials: [
+			{ text: "Lec8: AI computing infrastructure", href: "assets/docs/lec8-AI-computing-infra.pdf" },
+		], notes: "" },
+      { week: 3, date: "Tue Jun 2", topic: "AI storage", materials: [], notes: "" },
       { week: 3, date: "Wed Jun 3", topic: "AI programming frameworks (Ray)", materials: [], notes: "" },
-      { week: 3, date: "Thu Jun 4", topic: "AI infastructure", materials: [], notes: "" },
+      { week: 3, date: "Thu Jun 4", topic: "Sustainable AI", materials: [], notes: "" },
       { week: 3, date: "Fri Jun 5", topic: "Studio / Work Session", materials: [], notes: "Assignment 2 due" },
       { week: 4, date: "Mon Jun 8", topic: "LLM model storage and compression", materials: [], notes: "" },
       { week: 4, date: "Tue Jun 9", topic: "Multimodal generation", materials: [], notes: "" },
