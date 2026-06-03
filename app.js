@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec9",
+        html: `Lecture 9's slides are uploaded.`,
+        updated: "Jun 2, 2026"
+      },
+      {
         title: "Lec8",
         html: `Lecture 8's slides are uploaded.`,
         updated: "May 31, 2026"
@@ -271,7 +276,10 @@ presentation.</p>
 		materials: [
 			{ text: "Lec8: AI computing infrastructure II", href: "assets/docs/lec8-AI-computing-infra.pdf" },
 		], notes: "" },
-      { week: 3, date: "Wed Jun 3", topic: "AI programming frameworks (Ray)", materials: [], notes: "" },
+      { week: 3, date: "Wed Jun 3", topic: "AI programming framework (Ray)", 
+		materials: [
+			{ text: "Lec9: AI programming framework (Ray)", href: "assets/docs/lec9-ray.pdf" },
+		], notes: "" },
       { week: 3, date: "Thu Jun 4", topic: "AI storage infrastructure", materials: [], notes: "" },
       { week: 3, date: "Fri Jun 5", topic: "Studio / Work Session", materials: [], hideMaterials:true, notes: "Assignment 2 due" },
       { week: 4, date: "Mon Jun 8", topic: "LLM model storage and compression", materials: [], notes: "" },
