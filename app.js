@@ -6,7 +6,7 @@
     announcements: [
       {
         title: "Lec9",
-        html: `Lecture 9's slides are uploaded.`,
+        html: `Lecture 9's slides are uploaded. Ray demo GitHub is added.`,
         updated: "Jun 2, 2026"
       },
       {
@@ -279,6 +279,7 @@ presentation.</p>
       { week: 3, date: "Wed Jun 3", topic: "AI programming framework (Ray)", 
 		materials: [
 			{ text: "Lec9: AI programming framework (Ray)", href: "assets/docs/lec9-ray.pdf" },
+			{ text: "Ray demo (GitHub)", href: "https://github.com/tddg/ds5110_s26_ray_program_demo" },
 		], notes: "" },
       { week: 3, date: "Thu Jun 4", topic: "AI storage infrastructure", materials: [], notes: "" },
       { week: 3, date: "Fri Jun 5", topic: "Studio / Work Session", materials: [], hideMaterials:true, notes: "Assignment 2 due" },
