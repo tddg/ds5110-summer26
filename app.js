@@ -306,7 +306,7 @@ presentation.</p>
       { title: "Assignment 0", subtitle: "AWS Academy, EC2, Linux shell, and AI coding CLI", due: "Fri May 22, 11:59 PM ET", dueDate: "2026-05-22T23:59:00-04:00", href: "assignments/a0.html" },
       { title: "Assignment 1", subtitle: "Analytics with Spark and DuckDB", due: "Fri May 29, 11:59 PM ET", dueDate: "2026-05-29T23:59:00-04:00", href: "assignments/a1.html" },
       { title: "Assignment 2", subtitle: "Burst-parallel ML with AWS Lambda", due: "Fri Jun 5, 11:59 PM ET", dueDate: "2026-06-05T23:59:00-04:00", href: "assignments/a2.html" },
-      { title: "Course Project", subtitle: "Serverless computing and AI systems project", due: "Sat Jun 13, 11:59 PM ET", dueDate: "2026-06-13T23:59:00-04:00", href: "assignments/project.html" }
+      { title: "Project", subtitle: "AI and data systems project", due: "In-class presentation slide deck due Wed Jun 10, 5:00 PM ET", dueDate: "2026-06-10T05:00:00-04:00", href: "assignments/project.html" }
     ],
     staff: [
       { name: "Yue Cheng", role: "Instructor", email: "mrz7dp@virginia.edu", officeHours: "Thursday 3pm to 4pm (Zoom)", website: "https://tddg.github.io" },
