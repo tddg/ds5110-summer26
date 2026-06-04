@@ -1,6 +1,6 @@
 ---
 kicker: Course Project
-due: Sat Jun 13, 11:59 PM ET
+due: Wed Jun 10, 5:00 PM ET for presentation slide deck
 ---
 
 # Course Project Specification
