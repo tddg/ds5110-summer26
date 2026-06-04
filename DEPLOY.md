@@ -21,6 +21,8 @@ assignments/*.html
 
 It deploys generated assignment HTML files that exist under `assignments/`. To keep an assignment unpublished, do not generate or keep its `assignments/aN.html` file before running the deploy script.
 
+The deploy script checks out the existing `gh-pages` branch into a temporary directory, replaces the deployed files, commits the result, and pushes a normal branch update. This avoids force-pushing a brand-new history on every deploy.
+
 If `exiftool` is installed, the deploy script also updates PDF titles in the temporary deployed copy so browser tabs show each PDF filename instead of stale slide-deck metadata:
 
 ```bash

@@ -6,7 +6,7 @@
     announcements: [
       {
         title: "Project",
-        html: `Project details are posted`,
+        html: `Project details are posted.`,
         updated: "Jun 4, 2026"
       },
       {
