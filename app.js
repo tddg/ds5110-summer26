@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec10",
+        html: `Lecture 10's slides are uploaded.`,
+        updated: "Jun 2, 2026"
+      },
+      {
         title: "Lec9",
         html: `Lecture 9's slides are uploaded. Ray demo GitHub is added.`,
         updated: "Jun 2, 2026"
@@ -281,7 +286,10 @@ presentation.</p>
 			{ text: "Lec9: AI programming framework (Ray)", href: "assets/docs/lec9-ray.pdf" },
 			{ text: "Ray demo (GitHub)", href: "https://github.com/tddg/ds5110_s26_ray_program_demo" },
 		], notes: "" },
-      { week: 3, date: "Thu Jun 4", topic: "AI storage infrastructure", materials: [], notes: "" },
+      { week: 3, date: "Thu Jun 4", topic: "AI storage infrastructure", 
+		materials: [
+			{ text: "Lec10: AI storage infrastructure", href: "assets/docs/lec10-AI-storage-infra.pdf" },
+		], notes: "" },
       { week: 3, date: "Fri Jun 5", topic: "Studio / Work Session", materials: [], hideMaterials:true, notes: "Assignment 2 due" },
       { week: 4, date: "Mon Jun 8", topic: "LLM model storage and compression", materials: [], notes: "" },
       { week: 4, date: "Tue Jun 9", topic: "Multimodal generation", materials: [], notes: "" },
