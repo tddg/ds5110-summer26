@@ -5,9 +5,14 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Project",
+        html: `Project details are posted`,
+        updated: "Jun 4, 2026"
+      },
+      {
         title: "Lec10",
-        html: `Lecture 10's slides are uploaded.`,
-        updated: "Jun 2, 2026"
+        html: `Lecture 10's slides are uploaded. `,
+        updated: "Jun 3, 2026"
       },
       {
         title: "Lec9",
@@ -300,7 +305,8 @@ presentation.</p>
     assignments: [
       { title: "Assignment 0", subtitle: "AWS Academy, EC2, Linux shell, and AI coding CLI", due: "Fri May 22, 11:59 PM ET", dueDate: "2026-05-22T23:59:00-04:00", href: "assignments/a0.html" },
       { title: "Assignment 1", subtitle: "Analytics with Spark and DuckDB", due: "Fri May 29, 11:59 PM ET", dueDate: "2026-05-29T23:59:00-04:00", href: "assignments/a1.html" },
-      { title: "Assignment 2", subtitle: "Burst-parallel ML with AWS Lambda", due: "Fri Jun 5, 11:59 PM ET", dueDate: "2026-06-05T23:59:00-04:00", href: "assignments/a2.html" }
+      { title: "Assignment 2", subtitle: "Burst-parallel ML with AWS Lambda", due: "Fri Jun 5, 11:59 PM ET", dueDate: "2026-06-05T23:59:00-04:00", href: "assignments/a2.html" },
+      { title: "Course Project", subtitle: "Serverless computing and AI systems project", due: "Sat Jun 13, 11:59 PM ET", dueDate: "2026-06-13T23:59:00-04:00", href: "assignments/project.html" }
     ],
     staff: [
       { name: "Yue Cheng", role: "Instructor", email: "mrz7dp@virginia.edu", officeHours: "Thursday 3pm to 4pm (Zoom)", website: "https://tddg.github.io" },
