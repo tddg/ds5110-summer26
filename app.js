@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "Lec11",
+        html: `Lecture 11's slides are posted.`,
+        updated: "Jun 7, 2026"
+      },
+      {
         title: "Project",
         html: `Project details are posted.`,
         updated: "Jun 4, 2026"
@@ -26,7 +31,7 @@
       },
       {
         title: "A2 is out",
-        html: `A2 is out and due by EOD next Friday`,
+        html: `A2 is out and due by EOD next Friday.`,
         updated: "May 29, 2026"
       },
       {
@@ -296,7 +301,10 @@ presentation.</p>
 			{ text: "Lec10: AI storage infrastructure", href: "assets/docs/lec10-AI-storage-infra.pdf" },
 		], notes: "" },
       { week: 3, date: "Fri Jun 5", topic: "Studio / Work Session", materials: [], hideMaterials:true, notes: "Assignment 2 due" },
-      { week: 4, date: "Mon Jun 8", topic: "Model hub compression", materials: [], notes: "" },
+      { week: 4, date: "Mon Jun 8", topic: "Model hub compression", 
+		materials: [
+			{ text: "Lec11: AI model hub compression", href: "assets/docs/lec11-model-hub-compression.pdf" },
+		], notes: "" },
       { week: 4, date: "Tue Jun 9", topic: "GPU-efficient computational notebooks", materials: [], notes: "" },
       { week: 4, date: "Wed Jun 10", topic: "Working day", materials: [], hideMaterials:true, notes: "Presentation slides due at 5 PM" },
       { week: 4, date: "Thu Jun 11", topic: "Final presentation 1", materials: [], notes: "" },
