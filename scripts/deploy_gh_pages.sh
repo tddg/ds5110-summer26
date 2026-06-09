@@ -48,8 +48,8 @@ if [[ -d "$BUILD_DIR/assets/docs" ]]; then
     echo "Setting deployed PDF titles to filenames..."
     while IFS= read -r -d '' pdf; do
       title="$(basename "$pdf")"
-      exiftool -Title="$title" "$pdf" >/dev/null
-      rm -f "${pdf}_original"
+      echo "  $title"
+      exiftool -overwrite_original -Title="$title" "$pdf" >/dev/null
     done < <(find "$BUILD_DIR/assets/docs" -type f -iname "*.pdf" -print0)
   else
     echo "Warning: exiftool not found; deployed PDF browser titles may use stale PDF metadata." >&2
@@ -61,6 +61,7 @@ cat > "$BUILD_DIR/.nojekyll" <<'EOF'
 EOF
 
 rm -rf "$TMP_DIR"
+echo "Checking out existing $BRANCH branch..."
 if git ls-remote --exit-code --heads "$REMOTE_URL" "$BRANCH" >/dev/null 2>&1; then
   git clone -q --single-branch --branch "$BRANCH" "$REMOTE_URL" "$TMP_DIR"
 else

@@ -305,7 +305,10 @@ presentation.</p>
 		materials: [
 			{ text: "Lec11: AI model hub compression", href: "https://edstem.org/us/courses/98636/discussion/8119360" },
 		], notes: "" },
-      { week: 4, date: "Tue Jun 9", topic: "GPU-efficient computational notebooks", materials: [], notes: "" },
+      { week: 4, date: "Tue Jun 9", topic: "GPU-efficient AI computing infrastructure", 
+		materials: [
+			{ text: "Lec12: Training large language models at Meta, NotebookOS, LambdaBook", href: "https://edstem.org/us/courses/98636/discussion/8122391" },
+		], notes: "" },
       { week: 4, date: "Wed Jun 10", topic: "Working day", materials: [], hideMaterials:true, notes: "Presentation slides due at 5 PM" },
       { week: 4, date: "Thu Jun 11", topic: "Final presentation 1", materials: [], notes: "" },
       { week: 4, date: "Fri Jun 12", topic: "Final presentation 2", materials: [], notes: "Course wrap-up" }
