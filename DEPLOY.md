@@ -21,17 +21,23 @@ assignments/*.html
 
 It deploys generated assignment HTML files that exist under `assignments/`. To keep an assignment unpublished, do not generate or keep its `assignments/aN.html` file before running the deploy script.
 
-The deploy script checks out the existing `gh-pages` branch into a temporary directory, replaces the deployed files, commits the result, and pushes a normal branch update. This avoids force-pushing a brand-new history on every deploy.
+Following the deployment pattern used by `tddg.github.io`, the script creates a
+deployment commit from the current source commit and force-pushes it to
+`gh-pages`. This lets GitHub reuse unchanged objects already uploaded on the
+source branch instead of uploading every deployed asset again.
 
-For GitHub SSH remotes such as `git@github.com:tddg/ds5110-summer26.git`, the deploy script automatically uses the equivalent HTTPS URL. It will not prompt to trust a new SSH host, and it does not change your repository's configured `origin`.
+The deploy script uses the configured push URL for `origin` by default. With
+this repository's current configuration, deployment uses SSH:
 
 To override the deployment transport explicitly:
 
 ```bash
-DEPLOY_REMOTE_URL=https://github.com/tddg/ds5110-summer26.git bash scripts/deploy_gh_pages.sh
+DEPLOY_REMOTE_URL=git@github.com:tddg/ds5110-summer26.git bash scripts/deploy_gh_pages.sh
 ```
 
 The script also aborts before pushing if any deployed file exceeds GitHub's 100 MiB per-file limit.
+
+ZIP files are marked as binary with delta compression disabled.
 
 If `exiftool` is installed, the deploy script also updates PDF titles in the temporary deployed copy so browser tabs show each PDF filename instead of stale slide-deck metadata:
 

@@ -4,8 +4,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BRANCH="${BRANCH:-gh-pages}"
 REMOTE="${REMOTE:-origin}"
-TMP_DIR="${TMPDIR:-/tmp}/ds5110-summer26-gh-pages"
 BUILD_DIR="${TMPDIR:-/tmp}/ds5110-summer26-gh-pages-build"
+DEPLOY_INDEX="${TMPDIR:-/tmp}/ds5110-summer26-gh-pages-index"
+DEPLOY_OBJECTS="${TMPDIR:-/tmp}/ds5110-summer26-gh-pages-objects"
 BUILD_ASSIGNMENTS="${BUILD_ASSIGNMENTS:-0}"
 MAX_FILE_BYTES=$((100 * 1024 * 1024))
 
@@ -16,18 +17,10 @@ if ! git remote get-url "$REMOTE" >/dev/null 2>&1; then
   exit 1
 fi
 
-REMOTE_URL="$(git remote get-url "$REMOTE")"
+REMOTE_URL="$(git remote get-url --push "$REMOTE")"
 DEPLOY_REMOTE_URL="${DEPLOY_REMOTE_URL:-$REMOTE_URL}"
 
-# Use HTTPS for GitHub deployment so this script never prompts to trust a new
-# SSH host. This does not change the repository's configured origin.
-if [[ "$DEPLOY_REMOTE_URL" =~ ^git@github\.com:(.+)$ ]]; then
-  DEPLOY_REMOTE_URL="https://github.com/${BASH_REMATCH[1]}"
-elif [[ "$DEPLOY_REMOTE_URL" =~ ^ssh://git@ssh\.github\.com:443/(.+)$ ]]; then
-  DEPLOY_REMOTE_URL="https://github.com/${BASH_REMATCH[1]}"
-fi
-
-echo "Source remote: $REMOTE_URL"
+echo "Configured push remote: $REMOTE_URL"
 echo "Deploy target: $DEPLOY_REMOTE_URL branch $BRANCH"
 echo "Build assignment pages before deploy: $BUILD_ASSIGNMENTS"
 echo
@@ -43,6 +36,9 @@ mkdir -p "$BUILD_DIR"
 cp index.html "$BUILD_DIR/"
 cp style.css "$BUILD_DIR/"
 cp app.js "$BUILD_DIR/"
+if [[ -f .gitattributes ]]; then
+  cp .gitattributes "$BUILD_DIR/"
+fi
 
 if find assignments -maxdepth 1 -name "*.html" -type f | grep -q .; then
   mkdir -p "$BUILD_DIR/assignments"
@@ -86,49 +82,31 @@ if [[ -n "$oversized_file" ]]; then
   exit 1
 fi
 
-rm -rf "$TMP_DIR"
-echo "Checking out existing $BRANCH branch..."
-if ! remote_branch="$(git ls-remote --heads "$DEPLOY_REMOTE_URL" "$BRANCH")"; then
-  echo "Unable to inspect $DEPLOY_REMOTE_URL. Deploy aborted before creating local branch history." >&2
-  exit 1
-fi
-
-if [[ -n "$remote_branch" ]]; then
-  git clone -q --single-branch --branch "$BRANCH" "$DEPLOY_REMOTE_URL" "$TMP_DIR"
-else
-  mkdir -p "$TMP_DIR"
-  cd "$TMP_DIR"
-  git init -q
-  git checkout -q -b "$BRANCH"
-  git remote add "$REMOTE" "$DEPLOY_REMOTE_URL"
-  cd "$ROOT"
-fi
-
-find "$TMP_DIR" -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
-cp -R "$BUILD_DIR"/. "$TMP_DIR"/
-
-cd "$TMP_DIR"
-git add -A
-if git diff --cached --quiet; then
-  echo "No deploy changes to push."
-  exit 0
-fi
-git commit -q -m "Deploy course website"
+echo "Creating $BRANCH commit from the current source commit..."
+rm -f "$DEPLOY_INDEX"
+rm -rf "$DEPLOY_OBJECTS"
+mkdir -p "$DEPLOY_OBJECTS"
+export GIT_INDEX_FILE="$DEPLOY_INDEX"
+export GIT_OBJECT_DIRECTORY="$DEPLOY_OBJECTS"
+export GIT_ALTERNATE_OBJECT_DIRECTORIES="$ROOT/.git/objects"
+git read-tree HEAD
+git --work-tree="$BUILD_DIR" add -A
+DEPLOY_TREE="$(git write-tree)"
+DEPLOY_COMMIT="$(printf '%s\n' "Deploy course website" | git commit-tree "$DEPLOY_TREE" -p HEAD)"
+unset GIT_INDEX_FILE
 
 echo
-echo "About to push generated static site to $REMOTE/$BRANCH."
+echo "About to force-push generated static site to $DEPLOY_REMOTE_URL branch $BRANCH."
 echo "This updates the GitHub Pages branch only; it does not commit changes on your current branch."
 read -r -p "Continue? [y/N] " answer
 case "$answer" in
   y|Y|yes|YES)
     for attempt in 1 2 3; do
-      if git push "$REMOTE" "$BRANCH"; then
-        break
-      fi
-      if git fetch "$REMOTE" "$BRANCH" >/dev/null 2>&1 &&
-         git rebase "$REMOTE/$BRANCH" >/dev/null 2>&1 &&
-         git push "$REMOTE" "$BRANCH"; then
-        break
+      if git push --force "$DEPLOY_REMOTE_URL" "$DEPLOY_COMMIT:refs/heads/$BRANCH"; then
+        echo
+        echo "Deploy complete."
+        echo "In GitHub Pages settings, use branch '$BRANCH' and folder '/ (root)'."
+        exit 0
       fi
       if [[ "$attempt" -eq 3 ]]; then
         echo "Push failed after 3 attempts." >&2
@@ -139,11 +117,7 @@ case "$answer" in
     done
     ;;
   *)
-    echo "Deploy cancelled. Generated site remains at $TMP_DIR"
+    echo "Deploy cancelled. Generated site remains at $BUILD_DIR"
     exit 1
     ;;
 esac
-
-echo
-echo "Deploy complete."
-echo "In GitHub Pages settings, use branch '$BRANCH' and folder '/ (root)'."
