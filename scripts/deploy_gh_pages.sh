@@ -7,6 +7,7 @@ REMOTE="${REMOTE:-origin}"
 TMP_DIR="${TMPDIR:-/tmp}/ds5110-summer26-gh-pages"
 BUILD_DIR="${TMPDIR:-/tmp}/ds5110-summer26-gh-pages-build"
 BUILD_ASSIGNMENTS="${BUILD_ASSIGNMENTS:-0}"
+MAX_FILE_BYTES=$((100 * 1024 * 1024))
 
 cd "$ROOT"
 
@@ -16,8 +17,18 @@ if ! git remote get-url "$REMOTE" >/dev/null 2>&1; then
 fi
 
 REMOTE_URL="$(git remote get-url "$REMOTE")"
+DEPLOY_REMOTE_URL="${DEPLOY_REMOTE_URL:-$REMOTE_URL}"
 
-echo "Deploy target: $REMOTE_URL branch $BRANCH"
+# Use HTTPS for GitHub deployment so this script never prompts to trust a new
+# SSH host. This does not change the repository's configured origin.
+if [[ "$DEPLOY_REMOTE_URL" =~ ^git@github\.com:(.+)$ ]]; then
+  DEPLOY_REMOTE_URL="https://github.com/${BASH_REMATCH[1]}"
+elif [[ "$DEPLOY_REMOTE_URL" =~ ^ssh://git@ssh\.github\.com:443/(.+)$ ]]; then
+  DEPLOY_REMOTE_URL="https://github.com/${BASH_REMATCH[1]}"
+fi
+
+echo "Source remote: $REMOTE_URL"
+echo "Deploy target: $DEPLOY_REMOTE_URL branch $BRANCH"
 echo "Build assignment pages before deploy: $BUILD_ASSIGNMENTS"
 echo
 
@@ -60,16 +71,36 @@ fi
 cat > "$BUILD_DIR/.nojekyll" <<'EOF'
 EOF
 
+oversized_file=""
+while IFS= read -r -d '' file; do
+  size="$(stat -f '%z' "$file")"
+  if (( size > MAX_FILE_BYTES )); then
+    oversized_file="$file"
+    break
+  fi
+done < <(find "$BUILD_DIR" -type f -print0)
+
+if [[ -n "$oversized_file" ]]; then
+  echo "Deploy aborted: GitHub rejects files larger than 100 MiB." >&2
+  ls -lh "$oversized_file" >&2
+  exit 1
+fi
+
 rm -rf "$TMP_DIR"
 echo "Checking out existing $BRANCH branch..."
-if git ls-remote --exit-code --heads "$REMOTE_URL" "$BRANCH" >/dev/null 2>&1; then
-  git clone -q --single-branch --branch "$BRANCH" "$REMOTE_URL" "$TMP_DIR"
+if ! remote_branch="$(git ls-remote --heads "$DEPLOY_REMOTE_URL" "$BRANCH")"; then
+  echo "Unable to inspect $DEPLOY_REMOTE_URL. Deploy aborted before creating local branch history." >&2
+  exit 1
+fi
+
+if [[ -n "$remote_branch" ]]; then
+  git clone -q --single-branch --branch "$BRANCH" "$DEPLOY_REMOTE_URL" "$TMP_DIR"
 else
   mkdir -p "$TMP_DIR"
   cd "$TMP_DIR"
   git init -q
   git checkout -q -b "$BRANCH"
-  git remote add "$REMOTE" "$REMOTE_URL"
+  git remote add "$REMOTE" "$DEPLOY_REMOTE_URL"
   cd "$ROOT"
 fi
 
@@ -92,6 +123,11 @@ case "$answer" in
   y|Y|yes|YES)
     for attempt in 1 2 3; do
       if git push "$REMOTE" "$BRANCH"; then
+        break
+      fi
+      if git fetch "$REMOTE" "$BRANCH" >/dev/null 2>&1 &&
+         git rebase "$REMOTE/$BRANCH" >/dev/null 2>&1 &&
+         git push "$REMOTE" "$BRANCH"; then
         break
       fi
       if [[ "$attempt" -eq 3 ]]; then

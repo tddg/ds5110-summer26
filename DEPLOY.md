@@ -23,6 +23,16 @@ It deploys generated assignment HTML files that exist under `assignments/`. To k
 
 The deploy script checks out the existing `gh-pages` branch into a temporary directory, replaces the deployed files, commits the result, and pushes a normal branch update. This avoids force-pushing a brand-new history on every deploy.
 
+For GitHub SSH remotes such as `git@github.com:tddg/ds5110-summer26.git`, the deploy script automatically uses the equivalent HTTPS URL. It will not prompt to trust a new SSH host, and it does not change your repository's configured `origin`.
+
+To override the deployment transport explicitly:
+
+```bash
+DEPLOY_REMOTE_URL=https://github.com/tddg/ds5110-summer26.git bash scripts/deploy_gh_pages.sh
+```
+
+The script also aborts before pushing if any deployed file exceeds GitHub's 100 MiB per-file limit.
+
 If `exiftool` is installed, the deploy script also updates PDF titles in the temporary deployed copy so browser tabs show each PDF filename instead of stale slide-deck metadata:
 
 ```bash
