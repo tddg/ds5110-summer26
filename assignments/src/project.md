@@ -4,8 +4,9 @@ due: Wed Jun 13, 11:59 PM ET for project deliverables on Canvas
 ---
 
 
-
 # Project Specification
+
+[Presentation schedule](https://docs.google.com/spreadsheets/d/1ygP8BkCG1c-3jpowgr-rUsMgYMYr2Q5vkQr01IuO0_8/edit?usp=sharing)
 
 
 ## Project Overview
