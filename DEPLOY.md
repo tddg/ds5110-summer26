@@ -26,8 +26,8 @@ deployment commit from the current source commit and force-pushes it to
 `gh-pages`. This lets GitHub reuse unchanged objects already uploaded on the
 source branch instead of uploading every deployed asset again.
 
-The deploy script uses the configured push URL for `origin` by default. With
-this repository's current configuration, deployment uses SSH:
+The deploy script uses the repository's SSH URL by default, independently of
+the configured push URL for `origin`:
 
 To override the deployment transport explicitly:
 

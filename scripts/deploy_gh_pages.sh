@@ -18,7 +18,7 @@ if ! git remote get-url "$REMOTE" >/dev/null 2>&1; then
 fi
 
 REMOTE_URL="$(git remote get-url --push "$REMOTE")"
-DEPLOY_REMOTE_URL="${DEPLOY_REMOTE_URL:-$REMOTE_URL}"
+DEPLOY_REMOTE_URL="${DEPLOY_REMOTE_URL:-git@github.com:tddg/ds5110-summer26.git}"
 
 echo "Configured push remote: $REMOTE_URL"
 echo "Deploy target: $DEPLOY_REMOTE_URL branch $BRANCH"
