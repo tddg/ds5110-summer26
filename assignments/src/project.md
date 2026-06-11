@@ -103,8 +103,8 @@ Does your project demonstrate a thorough understanding of the chosen topic?
 Please prepare a 6–8 minute presentation and record a
 proof-of-concept demo.
 
-1. Submit the presentation slide deck by **5 PM on June 11**,
-on Canvas. This is for in-class presentation. 
+1. ~~Submit the presentation slide deck by **5 PM on June 11**,
+on Canvas. This is for in-class presentation.~~
 
 2. Submit all other project deliverables by **11:59 PM on June 13**,
 including:
