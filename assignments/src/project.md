@@ -1,9 +1,20 @@
 ---
 kicker: Course Project
-due: Wed Jun 10, 5:00 PM ET for presentation slide deck
+due: Wed Jun 13, 11:59 PM ET for project deliverables on Canvas
 ---
 
+
+
 # Project Specification
+
+
+## Presentation files
+
+[Day 1 presentations](/assets/docs/Day1_presentations.zip)
+
+[Day 2 presentations](/assets/docs/Day2_presentations.zip)
+
+
 
 ## Project Overview
 
@@ -123,3 +134,5 @@ configured.
 * **June 10 at 5 PM:** Deadline to submit your presentation slide deck on Canvas
 * **June 11/12:** In-class project presentations
 * **June 13 at 11:59 PM:** Final project submission deadline
+
+
