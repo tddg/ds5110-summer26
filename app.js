@@ -5,6 +5,11 @@
   var COURSE_DATA = {
     announcements: [
       {
+        title: "End of semester",
+        html: `Thank you all for a great semester! Happy Summer!`,
+        updated: "Jun 15, 2026"
+      },
+      {
         title: "Lec12, presentation slides",
         html: `Lecture 12's slides are posted. Presentation slides are due tomorrow, 06/10 at 5 PM.`,
         updated: "Jun 9, 2026"
